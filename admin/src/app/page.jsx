@@ -98,15 +98,17 @@ export default function DashboardPage() {
   }, [user, authLoading, router]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    if (user) {
+      fetchData();
+    }
+  }, [user, fetchData]);
 
-  if (authLoading || (!user && !error)) {
+  if (authLoading || !user) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ width: '36px', height: '36px', border: '3px solid #cbd5e1', borderTopColor: 'var(--primary)', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 12px' }} />
-          <p style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Loading Admin Console...</p>
+          <p style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Redirecting to Login...</p>
         </div>
       </div>
     );

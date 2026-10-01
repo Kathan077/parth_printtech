@@ -27,8 +27,15 @@ export function AuthProvider({ children }) {
       }
     } catch (err) {
       console.warn('Auth check failed:', err);
-      // Fallback: If offline or initial token present, keep session active
-      setUser({ username: 'admin', name: 'Super Admin' });
+      // Only clear session if server explicitly returned 401/403 or invalid token
+      const isAuthError = err.message && (err.message.includes('401') || err.message.includes('403') || err.message.toLowerCase().includes('unauthorized') || err.message.toLowerCase().includes('token'));
+      if (isAuthError) {
+        setUser(null);
+        setAuthToken('');
+      } else {
+        // Network error or backend restarting - preserve session
+        setUser({ username: 'admin', email: 'admin@gmail.com', name: 'Super Admin' });
+      }
     } finally {
       setLoading(false);
     }

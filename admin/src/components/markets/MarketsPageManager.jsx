@@ -1805,6 +1805,171 @@ export default function MarketsPageManager() {
                 <label className="form-label">Photo Image</label>
                 <FileUpload currentUrl={modalForm.photo} label="Upload Application Photo" accept="image/*" onUploadComplete={(url) => setModalForm((prev) => ({ ...prev, photo: url }))} />
               </div>
+
+              {/* KEY CONTAINER APPLICATION ZONES (Hotspots) */}
+              <div style={{ marginTop: '20px', background: '#f0f9ff', padding: '16px', borderRadius: '10px', border: '1px solid #bae6fd' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                  <div>
+                    <label className="form-label" style={{ margin: 0, color: '#0369a1' }}>🎯 Key Container Application Zones</label>
+                    <p style={{ fontSize: '11.5px', color: 'var(--text-muted)', marginTop: '2px' }}>e.g. Neck Seal, Body Contour, Base Anchor — shown as highlighted badges on the frontend</p>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-sm"
+                    onClick={() => setModalForm((prev) => ({
+                      ...prev,
+                      hotspots: [...(prev.hotspots || []), { badge: 'Zone Name', detail: 'Zone detail description.' }]
+                    }))}
+                  >
+                    <Plus size={12} /> Add Zone
+                  </button>
+                </div>
+                {(modalForm.hotspots || []).map((h, hi) => (
+                  <div key={hi} style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px' }}>
+                    <input
+                      type="text"
+                      className="form-input"
+                      placeholder="Badge (e.g. Neck Seal)"
+                      value={h.badge || ''}
+                      style={{ maxWidth: '160px', flexShrink: 0 }}
+                      onChange={(e) => {
+                        const updated = [...(modalForm.hotspots || [])];
+                        updated[hi] = { ...updated[hi], badge: e.target.value };
+                        setModalForm((prev) => ({ ...prev, hotspots: updated }));
+                      }}
+                    />
+                    <input
+                      type="text"
+                      className="form-input"
+                      placeholder="Detail description..."
+                      value={h.detail || ''}
+                      onChange={(e) => {
+                        const updated = [...(modalForm.hotspots || [])];
+                        updated[hi] = { ...updated[hi], detail: e.target.value };
+                        setModalForm((prev) => ({ ...prev, hotspots: updated }));
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-danger btn-sm"
+                      style={{ padding: '6px 8px', flexShrink: 0 }}
+                      onClick={() => setModalForm((prev) => ({ ...prev, hotspots: prev.hotspots.filter((_, i) => i !== hi) }))}
+                    >
+                      <Trash2 size={12} />
+                    </button>
+                  </div>
+                ))}
+                {(!modalForm.hotspots || modalForm.hotspots.length === 0) && (
+                  <p style={{ fontSize: '12px', color: 'var(--text-muted)', textAlign: 'center', padding: '8px 0' }}>No zones added yet. Click "Add Zone" to add one.</p>
+                )}
+              </div>
+
+              {/* TECHNICAL SPECS (e.g. Shrink Ratio, Thickness, Print Process, Durability) */}
+              <div style={{ marginTop: '16px', background: '#f8fafc', padding: '16px', borderRadius: '10px', border: '1px solid var(--border)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                  <div>
+                    <label className="form-label" style={{ margin: 0 }}>📊 Technical Specifications</label>
+                    <p style={{ fontSize: '11.5px', color: 'var(--text-muted)', marginTop: '2px' }}>e.g. Shrink Ratio: 50%–78%, Thickness: 35–50 Microns — shown as spec cards on the frontend</p>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-sm"
+                    onClick={() => setModalForm((prev) => ({
+                      ...prev,
+                      specs: [...(prev.specs || []), { label: 'Spec Name', value: 'Spec Value' }]
+                    }))}
+                  >
+                    <Plus size={12} /> Add Spec
+                  </button>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '8px' }}>
+                  {(modalForm.specs || []).map((s, si) => (
+                    <div key={si} style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="Label (e.g. Shrink Ratio)"
+                        value={s.label || ''}
+                        onChange={(e) => {
+                          const updated = [...(modalForm.specs || [])];
+                          updated[si] = { ...updated[si], label: e.target.value };
+                          setModalForm((prev) => ({ ...prev, specs: updated }));
+                        }}
+                      />
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="Value (e.g. 50%–78%)"
+                        value={s.value || ''}
+                        onChange={(e) => {
+                          const updated = [...(modalForm.specs || [])];
+                          updated[si] = { ...updated[si], value: e.target.value };
+                          setModalForm((prev) => ({ ...prev, specs: updated }));
+                        }}
+                      />
+                      <button
+                        type="button"
+                        className="btn btn-danger btn-sm"
+                        style={{ padding: '6px 8px', flexShrink: 0 }}
+                        onClick={() => setModalForm((prev) => ({ ...prev, specs: prev.specs.filter((_, i) => i !== si) }))}
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                {(!modalForm.specs || modalForm.specs.length === 0) && (
+                  <p style={{ fontSize: '12px', color: 'var(--text-muted)', textAlign: 'center', padding: '8px 0' }}>No specs added yet. Click "Add Spec" to add one.</p>
+                )}
+              </div>
+
+              {/* USE CASES / COMPATIBLE PRODUCTS (uses checkboxes on frontend) */}
+              <div style={{ marginTop: '16px', background: '#f0fdf4', padding: '16px', borderRadius: '10px', border: '1px solid #bbf7d0' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                  <div>
+                    <label className="form-label" style={{ margin: 0, color: '#166534' }}>✅ Compatible Use Cases</label>
+                    <p style={{ fontSize: '11.5px', color: 'var(--text-muted)', marginTop: '2px' }}>e.g. Mineral Water &amp; Soda Bottles — displayed as checkmark tags on the frontend</p>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-sm"
+                    onClick={() => setModalForm((prev) => ({
+                      ...prev,
+                      uses: [...(prev.uses || []), 'New Use Case']
+                    }))}
+                  >
+                    <Plus size={12} /> Add Use Case
+                  </button>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '8px' }}>
+                  {(modalForm.uses || []).map((use, ui) => (
+                    <div key={ui} style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="e.g. Mineral Water & Soda Bottles"
+                        value={use || ''}
+                        onChange={(e) => {
+                          const updated = [...(modalForm.uses || [])];
+                          updated[ui] = e.target.value;
+                          setModalForm((prev) => ({ ...prev, uses: updated }));
+                        }}
+                      />
+                      <button
+                        type="button"
+                        className="btn btn-danger btn-sm"
+                        style={{ padding: '6px 8px', flexShrink: 0 }}
+                        onClick={() => setModalForm((prev) => ({ ...prev, uses: prev.uses.filter((_, i) => i !== ui) }))}
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                {(!modalForm.uses || modalForm.uses.length === 0) && (
+                  <p style={{ fontSize: '12px', color: 'var(--text-muted)', textAlign: 'center', padding: '8px 0' }}>No use cases added yet. Click "Add Use Case" to add one.</p>
+                )}
+              </div>
             </div>
           )}
 

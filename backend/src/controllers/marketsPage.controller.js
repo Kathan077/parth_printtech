@@ -199,7 +199,7 @@ const defaultMarketsPageData = {
       specs: [
         { label: "Shrink Ratio", value: "50% - 78% (PVC / PETG)" },
         { label: "Thickness", value: "35 - 50 Microns" },
-        { label: "Print Process", value: "9-Color Rotogravure / Flexo" },
+        { label: "Print Process", value: "10-Color Rotogravure / Flexo" },
         { label: "Durability", value: "100% Waterproof & Scuff Proof" }
       ]
     },

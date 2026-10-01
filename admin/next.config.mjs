@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    root: '.',
+  },
   reactStrictMode: true,
   images: {
     remotePatterns: [

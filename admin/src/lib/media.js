@@ -1,7 +1,7 @@
 const BACKEND_BASE = (
   process.env.NEXT_PUBLIC_BACKEND_URL ||
   process.env.NEXT_PUBLIC_API_BASE?.replace(/\/api\/?$/, '') ||
-  'https://updatedparthprinttech.onrender.com'
+  'https://parth-printtech.onrender.com'
 ).replace(/\/$/, '');
 
 export function getMediaUrl(src, fallback = '') {

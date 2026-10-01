@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./AboutFounders.module.css";
 import { getMediaUrl } from "@/lib/media";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://updatedparthprinttech.onrender.com/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://parth-printtech.onrender.com/api";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);

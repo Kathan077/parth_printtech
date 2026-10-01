@@ -1,4 +1,4 @@
-export const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'https://updatedparthprinttech.onrender.com/api';
+export const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'https://parth-printtech.onrender.com/api';
 
 export async function fetchHomeData() {
   const tryFetch = async (timeoutMs) => {

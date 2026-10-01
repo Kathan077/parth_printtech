@@ -1,17 +1,12 @@
-export const BACKEND_URL = (process.env.NEXT_PUBLIC_BACKEND_URL || process.env.NEXT_PUBLIC_API_BASE?.replace(/\/api\/?$/, '') || 'https://updatedparthprinttech.onrender.com').replace(/\/$/, '');
+export const BACKEND_URL = (process.env.NEXT_PUBLIC_BACKEND_URL || process.env.NEXT_PUBLIC_API_BASE?.replace(/\/api\/?$/, '') || 'https://parth-printtech.onrender.com').replace(/\/$/, '');
 export const API_BASE = process.env.NEXT_PUBLIC_API_BASE || `${BACKEND_URL}/api`;
 export const FRONTEND_URL = (process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000').replace(/\/$/, '');
 
 export function getAuthToken() {
   if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('parth_admin_token');
-    if (token) return token;
-    // Set default session token if empty
-    const defaultToken = 'admin_session_token_default';
-    localStorage.setItem('parth_admin_token', defaultToken);
-    return defaultToken;
+    return localStorage.getItem('parth_admin_token') || '';
   }
-  return 'admin_session_token_default';
+  return '';
 }
 
 export function setAuthToken(token) {

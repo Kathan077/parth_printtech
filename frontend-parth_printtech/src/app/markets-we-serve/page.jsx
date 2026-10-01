@@ -372,7 +372,7 @@ const productUsesData = [
     specs: [
       { label: "Shrink Ratio", value: "50% - 78% (PVC / PETG)" },
       { label: "Thickness", value: "35 - 50 Microns" },
-      { label: "Print Process", value: "9-Color Rotogravure / Flexo" },
+      { label: "Print Process", value: "10-Color Rotogravure / Flexo" },
       { label: "Durability", value: "100% Waterproof & Scuff Proof" }
     ]
   },
@@ -541,7 +541,7 @@ const defaultSeoBlocks = [
   }
 ];
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://updatedparthprinttech.onrender.com/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://parth-printtech.onrender.com/api";
 
 const defaultHeroMockups = [
   {

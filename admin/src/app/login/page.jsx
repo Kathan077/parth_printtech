@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
@@ -10,9 +10,15 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const toast = useToast();
   const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

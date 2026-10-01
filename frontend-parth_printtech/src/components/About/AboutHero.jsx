@@ -6,7 +6,7 @@ import gsap from "gsap";
 import styles from "./AboutHero.module.css";
 import { getMediaUrl } from "@/lib/media";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://updatedparthprinttech.onrender.com/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://parth-printtech.onrender.com/api";
 
 const initialHero = {
   title: "Engineering Packaging With",

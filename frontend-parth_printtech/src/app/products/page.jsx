@@ -10,7 +10,7 @@ import { productsData } from "./productsData";
 import { getMediaUrl } from "@/lib/media";
 import styles from "./ProductsPage.module.css";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://updatedparthprinttech.onrender.com/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://parth-printtech.onrender.com/api";
 
 const ProductsPage = () => {
   const containerRef = useRef(null);
