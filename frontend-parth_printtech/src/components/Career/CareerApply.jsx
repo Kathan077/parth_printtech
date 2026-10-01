@@ -77,8 +77,9 @@ const CareerApply = ({ contactData = {}, rolesList = [], selectedRole = "", onCh
     try {
       // 1. Submit to Web3Forms for direct email delivery
       try {
+        const web3Key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "a1866527-580b-463f-ad55-e7f56c088ee4";
         const web3Data = new FormData();
-        web3Data.append("access_key", "a1866527-580b-463f-ad55-e7f56c088ee4");
+        web3Data.append("access_key", web3Key);
         web3Data.append("name", `${formData.firstName} ${formData.lastName}`.trim());
         web3Data.append("email", formData.email);
         web3Data.append("subject", `New Job Application: ${selectedRole || 'General Application'}`);
