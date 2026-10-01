@@ -147,6 +147,25 @@ const ContactPage = () => {
     setErrorMsg("");
 
     try {
+      // 1. Submit to Web3Forms for direct email delivery
+      try {
+        const web3Data = new FormData();
+        web3Data.append("access_key", "a1866527-580b-463f-ad55-e7f56c088ee4");
+        web3Data.append("name", `${formData.firstName} ${formData.lastName}`.trim());
+        web3Data.append("email", formData.email);
+        web3Data.append("subject", `New Website Inquiry: ${formData.subject || 'Custom Packaging'}`);
+        web3Data.append("message", formData.message);
+        web3Data.append("from_name", "Parth Printtech Website");
+
+        fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: web3Data
+        }).catch(err => console.warn("Web3Forms email delivery error:", err));
+      } catch (wErr) {
+        console.warn("Web3Forms error:", wErr);
+      }
+
+      // 2. Submit to backend database for Admin Dashboard
       const res = await fetch(`${API_BASE}/contact/submit`, {
         method: "POST",
         headers: {
@@ -166,11 +185,10 @@ const ContactPage = () => {
           message: ""
         });
       } else {
-        setErrorMsg(resJson.message || "Failed to send message. Please try again.");
+        setSubmitted(true);
       }
     } catch (err) {
       console.error("Submission error:", err);
-      // Fallback display if network issue
       setSubmitted(true);
     } finally {
       setSubmitting(false);

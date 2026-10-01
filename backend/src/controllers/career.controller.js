@@ -473,6 +473,25 @@ exports.submitApplication = async (req, res) => {
     db.careerApplications = applications;
     writeDb(db);
 
+    // Forward application notice to Web3Forms
+    try {
+      const accessKey = process.env.WEB3FORMS_ACCESS_KEY || "a1866527-580b-463f-ad55-e7f56c088ee4";
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: newApplication.candidateName,
+          email: newApplication.email,
+          subject: `New Job Application: ${newApplication.role}`,
+          message: `Applicant: ${newApplication.candidateName}\nEmail: ${newApplication.email}\nPhone: ${newApplication.phone}\nExperience: ${newApplication.experience}\nRole: ${newApplication.role}\n\nCover Message:\n${newApplication.message}`,
+          from_name: "Parth Printtech Careers Backend"
+        })
+      }).catch(err => console.warn("Backend Web3Forms career error:", err.message));
+    } catch (wErr) {
+      console.warn("Backend Web3Forms career trigger error:", wErr);
+    }
+
     res.json({
       success: true,
       message: 'Application submitted successfully! Our HR team will reach out soon.',

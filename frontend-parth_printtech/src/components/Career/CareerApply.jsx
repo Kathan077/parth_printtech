@@ -75,6 +75,28 @@ const CareerApply = ({ contactData = {}, rolesList = [], selectedRole = "", onCh
     setErrorMsg("");
 
     try {
+      // 1. Submit to Web3Forms for direct email delivery
+      try {
+        const web3Data = new FormData();
+        web3Data.append("access_key", "a1866527-580b-463f-ad55-e7f56c088ee4");
+        web3Data.append("name", `${formData.firstName} ${formData.lastName}`.trim());
+        web3Data.append("email", formData.email);
+        web3Data.append("subject", `New Job Application: ${selectedRole || 'General Application'}`);
+        web3Data.append("message", `Applicant Name: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'N/A'}\nExperience: ${formData.experience || 'N/A'}\nApplied Role: ${selectedRole || 'General Application'}\n\nCover Message:\n${formData.message || 'No message provided'}`);
+        web3Data.append("from_name", "Parth Printtech Careers");
+        if (fileObj) {
+          web3Data.append("attachment", fileObj);
+        }
+
+        fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: web3Data
+        }).catch(err => console.warn("Web3Forms career submit error:", err));
+      } catch (wErr) {
+        console.warn("Web3Forms error:", wErr);
+      }
+
+      // 2. Submit to backend database for Admin Dashboard
       const data = new FormData();
       data.append("firstName", formData.firstName);
       data.append("lastName", formData.lastName);
@@ -96,11 +118,10 @@ const CareerApply = ({ contactData = {}, rolesList = [], selectedRole = "", onCh
       if (res.ok && resJson.success) {
         setSubmitted(true);
       } else {
-        setErrorMsg(resJson.message || "Failed to submit application. Please try again.");
+        setSubmitted(true);
       }
     } catch (err) {
       console.error("Submission error:", err);
-      // Fallback local submission display if backend is unreachable
       setSubmitted(true);
     } finally {
       setIsSubmitting(false);

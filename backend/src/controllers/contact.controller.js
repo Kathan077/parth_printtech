@@ -90,6 +90,25 @@ exports.submitInquiry = async (req, res) => {
     db.contactInquiries = inquiries;
     writeDb(db);
 
+    // Forward to Web3Forms for direct email notification
+    try {
+      const accessKey = process.env.WEB3FORMS_ACCESS_KEY || "a1866527-580b-463f-ad55-e7f56c088ee4";
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: newInquiry.fullName,
+          email: email,
+          subject: `New Website Inquiry: ${newInquiry.subject}`,
+          message: message,
+          from_name: "Parth Printtech Website Backend"
+        })
+      }).catch(err => console.warn("Backend Web3Forms error:", err.message));
+    } catch (wErr) {
+      console.warn("Backend Web3Forms trigger error:", wErr);
+    }
+
     res.json({
       success: true,
       message: 'Thank you for reaching out! Our team will get back to you shortly.',
