@@ -20,6 +20,17 @@ const ContactPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [mapViewMode, setMapViewMode] = useState("google");
+  const [copiedAddress, setCopiedAddress] = useState(false);
+
+  const handleCopyAddress = () => {
+    const fullAddr = contactData?.map?.address || "47/8, G.I.D.C., Kalol - 382725 (N.G.), Dist. Gandhinagar, Gujarat, India.";
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(fullAddr);
+      setCopiedAddress(true);
+      setTimeout(() => setCopiedAddress(false), 2500);
+    }
+  };
 
   // Live Contact Content State
   const [contactData, setContactData] = useState({
@@ -272,33 +283,157 @@ const ContactPage = () => {
                 <p className={styles.cardHint}>{cards.responseTimeHint}</p>
               </div>
 
-              {/* Stylized Map Card */}
+              {/* Pro Interactive Blueprint & Google Map Card */}
               <div className={`${styles.infoCard} ${styles.mapCard}`}>
-                <div className={styles.mapVisual}>
-                  {/* Schematic background pattern */}
-                  <div className={styles.mapGridLines}></div>
-                  <div className={styles.mapHotspot}>
-                    <span className={styles.mapPulse}></span>
-                    <span className={styles.mapDot}></span>
+                
+                {/* HUD Header Bar */}
+                <div className={styles.mapHUDHeader}>
+                  <div className={styles.mapTitleBadge}>
+                    <span className={styles.livePulseDot}></span>
+                    <span>KALOL MANUFACTURING PLANT</span>
                   </div>
-                  <div className={styles.mapDetailsText}>
-                    <span className={styles.mapCity}>{map.city}</span>
-                    <span className={styles.mapState}>{map.state}</span>
+                  <div className={styles.mapViewSwitcher}>
+                    <button 
+                      type="button" 
+                      onClick={() => setMapViewMode("google")}
+                      className={`${styles.viewBtn} ${mapViewMode === "google" ? styles.viewBtnActive : ""}`}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                        <polyline points="2 17 12 22 22 17"/>
+                        <polyline points="2 12 12 17 22 12"/>
+                      </svg>
+                      Google Map
+                    </button>
+                    <button 
+                      type="button" 
+                      onClick={() => setMapViewMode("radar")}
+                      className={`${styles.viewBtn} ${mapViewMode === "radar" ? styles.viewBtnActive : ""}`}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="2" x2="12" y2="22"/>
+                        <line x1="2" y1="12" x2="22" y2="12"/>
+                      </svg>
+                      CAD Radar
+                    </button>
                   </div>
                 </div>
+
+                {/* Map Visual Container */}
+                <div className={styles.mapVisualContainer}>
+                  
+                  {/* HUD Framing & Corners */}
+                  <div className={styles.hudOverlay}>
+                    <div className={styles.hudCornerTL}></div>
+                    <div className={styles.hudCornerTR}></div>
+                    <div className={styles.hudCornerBL}></div>
+                    <div className={styles.hudCornerBR}></div>
+                    <div className={styles.hudCoordsPill}>
+                      23°14'17.2"N 72°29'51.0"E
+                    </div>
+                    <div className={styles.hudPlantPill}>
+                      HQ • SECTOR 47/8
+                    </div>
+                  </div>
+
+                  {mapViewMode === "google" ? (
+                    <iframe
+                      title="Parth Printtech Plant Location"
+                      src="https://maps.google.com/maps?q=47/8%20GIDC%20Kalol%20Gandhinagar%20Gujarat%20382725&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                      className={styles.mapIframe}
+                      loading="lazy"
+                      allowFullScreen
+                    ></iframe>
+                  ) : (
+                    <div className={styles.blueprintGraphic}>
+                      {/* Grid background */}
+                      <div className={styles.mapGridLines}></div>
+                      {/* Radar sweep */}
+                      <div className={styles.radarSweepLine}></div>
+                      
+                      {/* Vector Map Roads & Zone Schematic */}
+                      <svg width="100%" height="100%" viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice" style={{ position: 'absolute', opacity: 0.85 }}>
+                        {/* Radar concentric circles */}
+                        <circle cx="200" cy="140" r="40" fill="none" stroke="#009fe3" strokeWidth="1" strokeDasharray="3 3" opacity="0.4" />
+                        <circle cx="200" cy="140" r="80" fill="none" stroke="#009fe3" strokeWidth="1" strokeDasharray="4 4" opacity="0.3" />
+                        <circle cx="200" cy="140" r="120" fill="none" stroke="#009fe3" strokeWidth="1" opacity="0.15" />
+                        
+                        {/* Stylized Highway / Road vector lines */}
+                        <path d="M 0 160 Q 120 150 200 140 T 400 110" fill="none" stroke="#334155" strokeWidth="6" />
+                        <path d="M 0 160 Q 120 150 200 140 T 400 110" fill="none" stroke="#009fe3" strokeWidth="1.5" strokeDasharray="8 4" opacity="0.8" />
+                        
+                        <path d="M 200 0 L 200 280" fill="none" stroke="#1e293b" strokeWidth="4" />
+                        <path d="M 200 0 L 200 280" fill="none" stroke="#38bdf8" strokeWidth="1" strokeDasharray="6 6" opacity="0.5" />
+                        
+                        {/* Secondary roads */}
+                        <path d="M 60 0 L 60 280" fill="none" stroke="#1e293b" strokeWidth="2" />
+                        <path d="M 330 0 L 330 280" fill="none" stroke="#1e293b" strokeWidth="2" />
+                        <path d="M 0 80 L 400 80" fill="none" stroke="#1e293b" strokeWidth="2" />
+                        <path d="M 0 220 L 400 220" fill="none" stroke="#1e293b" strokeWidth="2" />
+
+                        {/* GIDC Industrial Plot Zone outline */}
+                        <rect x="160" y="105" width="80" height="70" rx="8" fill="rgba(0, 159, 227, 0.12)" stroke="#009fe3" strokeWidth="1.5" strokeDasharray="4 2" />
+                        <text x="200" y="98" fill="#38bdf8" fontSize="9" fontFamily="monospace" textAnchor="middle" letterSpacing="1">GIDC INDUSTRIAL ESTATE</text>
+                        <text x="200" y="192" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">PARTH PRINTTECH FACILITY</text>
+
+                        {/* North Indicator */}
+                        <g transform="translate(360, 40)">
+                          <circle cx="0" cy="0" r="14" fill="#0f172a" stroke="#009fe3" strokeWidth="1" />
+                          <path d="M 0 -8 L 4 4 L 0 2 L -4 4 Z" fill="#009fe3" />
+                          <text x="0" y="11" fill="#ffffff" fontSize="7" fontWeight="bold" textAnchor="middle">N</text>
+                        </g>
+                      </svg>
+
+                      {/* Plant Location Glowing Pin */}
+                      <div className={styles.mapHotspot} style={{ zIndex: 5 }}>
+                        <span className={styles.mapPulse}></span>
+                        <span className={styles.mapDot}></span>
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+
+                {/* Footer details & action buttons */}
                 <div className={styles.mapCardFooter}>
-                  <p className={styles.mapAddress}>
-                    {map.address}
-                  </p>
-                  <a 
-                    href={map.mapLink || "https://maps.google.com/?q=GIDC+Kalol+Gandhinagar+Gujarat+India"} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className={styles.mapLink}
-                  >
-                    Open maps →
-                  </a>
+                  <div className={styles.mapAddressRow}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.mapAddressIcon}>
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <p className={styles.mapAddressText}>
+                      {map.address}
+                    </p>
+                  </div>
+                  
+                  <div className={styles.mapCardBtns}>
+                    <a 
+                      href={map.mapLink || "https://maps.google.com/?q=47/8+GIDC+Kalol+Gandhinagar+Gujarat+India"} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className={styles.directionBtn}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+                      </svg>
+                      Get Directions
+                    </a>
+                    
+                    <button 
+                      type="button" 
+                      onClick={handleCopyAddress} 
+                      className={styles.copyAddressBtn}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                      </svg>
+                      {copiedAddress ? "Address Copied!" : "Copy Address"}
+                    </button>
+                  </div>
                 </div>
+
               </div>
 
               {/* Social Media Icons */}
