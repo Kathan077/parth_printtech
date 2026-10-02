@@ -30,11 +30,15 @@ const initialHistory = {
   }
 };
 
-const AboutHistory = () => {
+const AboutHistory = ({ data: initialData }) => {
   const containerRef = useRef(null);
-  const [data, setData] = useState(initialHistory);
+  const [data, setData] = useState(initialData ? { ...initialHistory, ...initialData } : initialHistory);
 
   useEffect(() => {
+    if (initialData) {
+      setData(initialData);
+      return;
+    }
     async function loadData() {
       try {
         const res = await fetch(`${API_BASE}/about`);
@@ -49,7 +53,7 @@ const AboutHistory = () => {
       }
     }
     loadData();
-  }, []);
+  }, [initialData]);
 
   useEffect(() => {
     let ctx = gsap.context(() => {

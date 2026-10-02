@@ -1,242 +1,208 @@
-"use client";
-
-import React, { useEffect, useRef, useState } from "react";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
-import Image from "next/image";
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
-import gsap from "gsap";
+import { fetchProductById } from "@/lib/api";
+import ProductDetailPageClient from "./ProductDetailPageClient";
 import { productsData } from "../productsData";
-import { getMediaUrl } from "@/lib/media";
-import styles from "../ProductsPage.module.css";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://parth-printtech.onrender.com/api";
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-const ProductDetailPage = () => {
-  const params = useParams();
-  const router = useRouter();
-  const containerRef = useRef(null);
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://parthprinttech.com";
 
-  const staticMatch = productsData.find((p) => p.id === params.id) || null;
-  const [product, setProduct] = useState(staticMatch);
-  const [loading, setLoading] = useState(!staticMatch);
+// Keyword dictionaries for individual products to maximize search ranking
+const productKeywordsMap = {
+  "pvc-shrink-sleeves": [
+    "PVC shrink sleeves manufacturer India",
+    "custom printed PVC shrink sleeve labels",
+    "tamper evident PVC shrink neck bands",
+    "360 degree bottle label printing Gujarat",
+    "58 percent shrinkage PVC film",
+    "rotogravure printed PVC sleeves Kalol",
+    "beverage bottle shrink sleeve supplier",
+    "cosmetics jar PVC sleeve label"
+  ],
+  "petg-shrink-sleeves": [
+    "PETG shrink sleeves manufacturer India",
+    "eco-friendly recyclable PETG shrink film",
+    "78 percent high shrinkage sleeve labels",
+    "aerosol can PETG shrink sleeves",
+    "contour bottle PETG packaging labels",
+    "sustainable shrink sleeve printing Gujarat",
+    "PETG vs PVC shrink sleeve comparison",
+    "premium beverage PETG shrink labels"
+  ],
+  "bopp-wrap-around-labels": [
+    "BOPP wrap around labels manufacturer",
+    "roll fed BOPP bottle labels India",
+    "mineral water bottle BOPP labels",
+    "pearlised and transparent BOPP labels",
+    "hot melt adhesive BOPP wrap around labels",
+    "high speed rotary labeling film Gujarat",
+    "carbonated soft drink bottle labels",
+    "BOPP film printing Kalol Gandhinagar"
+  ],
+  "heat-transfer-labels": [
+    "Heat transfer labels HTL manufacturer India",
+    "direct plastic container heat transfer printing",
+    "scratch proof HTL labels for PE PP PET containers",
+    "lube oil container heat transfer labels",
+    "paint bucket HTL printing Gujarat",
+    "seamless no-label look container decoration",
+    "UV cured heat transfer label supplier",
+    "chemical resistant container labeling"
+  ],
+  "plain-pvc-shrink-film": [
+    "plain PVC shrink film rolls manufacturer",
+    "unprinted PVC shrink film Gujarat",
+    "layflat and centerfold PVC shrink wrap rolls",
+    "industrial PVC shrink film supplier Kalol",
+    "promotional multi-pack PVC shrink film",
+    "tamper proof clear shrink packaging film",
+    "heat sealable PVC shrink film India",
+    "bulk packaging shrink wrap rolls"
+  ]
+};
 
-  useEffect(() => {
-    async function loadProd() {
-      try {
-        const res = await fetch(`${API_BASE}/products/${params.id}`, { cache: "no-store" });
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.data) {
-            setProduct(json.data);
-          }
-        }
-      } catch (err) {
-        // Fallback to static
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadProd();
-  }, [params.id]);
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  let product = await fetchProductById(id);
 
-  useEffect(() => {
-    if (product) {
-      document.title = `${product.title} | Parth Printing Technology`;
-
-      let ctx = gsap.context(() => {
-        gsap.fromTo(
-          ".detail-reveal",
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out" }
-        );
-      }, containerRef);
-
-      return () => ctx.revert();
-    }
-  }, [product]);
-
-  if (loading) {
-    return (
-      <>
-        <Navbar />
-        <main className={styles.mainContainer}>
-          <div className={styles.container} style={{ textAlign: "center", padding: "100px 0", color: "#64748b" }}>
-            <p>Loading Product Specifications...</p>
-          </div>
-        </main>
-        <Footer />
-      </>
-    );
+  if (!product) {
+    product = productsData.find((p) => p.id === id);
   }
 
   if (!product) {
-    return (
-      <>
-        <Navbar />
-        <main className={styles.mainContainer}>
-          <div className={styles.container} style={{ textAlign: "center", padding: "100px 0" }}>
-            <h1 className={styles.title}>Product Not Found</h1>
-            <p className={styles.description}>The requested product specifications could not be located in our index.</p>
-            <Link href="/products" className={styles.filterBtn} style={{ display: "inline-block", marginTop: "20px" }}>
-              Back to Catalog
-            </Link>
-          </div>
-        </main>
-        <Footer />
-      </>
-    );
+    return {
+      title: "Packaging Solution | Parth Printtech",
+      description: "Custom shrink sleeves and industrial packaging film solutions by Parth Printtech.",
+    };
   }
 
-  const getPreFilledMessage = () => {
-    let specText = `PROJECT SPECIFICATION CALIBRATION:\n`;
-    specText += `- Product: ${product.title}\n`;
-    specText += `- Dimensions: ${product.dim || "Standard"}\n`;
-    (product.specs || []).forEach((spec) => {
-      specText += `- ${spec.label}: ${spec.value}\n`;
-    });
-    specText += `\nPlease review these specs and contact me for calibration and quotation.`;
-    return specText;
-  };
+  const keywords = productKeywordsMap[id] || [
+    `${product.title} manufacturer`,
+    `${product.title} India`,
+    `${product.title} supplier Gujarat`,
+    "industrial packaging labels",
+  ];
 
-  const handleInitiateQuote = () => {
-    const subjectParam = encodeURIComponent(product.title);
-    const descParam = encodeURIComponent(getPreFilledMessage());
-    router.push(`/contact?subject=${subjectParam}&desc=${descParam}`);
-  };
+  const imageUrl = product.image?.startsWith("http")
+    ? product.image
+    : `${siteUrl}${product.image}`;
 
-  const resolveImage = (src) => {
-    return getMediaUrl(src, "/images/products/pvc_shrink_sleeves.png");
+  return {
+    title: `${product.title} Manufacturer & Exporter in India`,
+    description: `${product.detailedDescription || product.description} Engineered by Parth Printtech with custom specifications for high-speed automated packaging lines.`,
+    keywords: keywords,
+    alternates: {
+      canonical: `/products/${id}`,
+    },
+    openGraph: {
+      title: `${product.title} | Parth Printtech Packaging Solutions`,
+      description: product.description,
+      url: `/products/${id}`,
+      type: "article",
+      images: [
+        {
+          url: imageUrl,
+          width: 800,
+          height: 600,
+          alt: `${product.title} - Parth Printtech`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.title} | Parth Printtech`,
+      description: product.description,
+      images: [imageUrl],
+    },
+  };
+}
+
+export default async function ProductDetailPage({ params }) {
+  const { id } = await params;
+  let product = await fetchProductById(id);
+
+  if (!product) {
+    product = productsData.find((p) => p.id === id);
+  }
+
+  const imageUrl = product?.image?.startsWith("http")
+    ? product.image
+    : `${siteUrl}${product?.image || "/logo/world_map_blueprint.png"}`;
+
+  // Schema.org Product & BreadcrumbList Structured Data
+  const productSchema = product
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: product.title,
+        image: imageUrl,
+        description: product.detailedDescription || product.description,
+        category: product.category,
+        brand: {
+          "@type": "Brand",
+          name: "Parth Printtech",
+        },
+        manufacturer: {
+          "@type": "Organization",
+          name: "Parth Printtech LLP",
+        },
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "INR",
+          price: "Contact for Quote",
+          availability: "https://schema.org/InStock",
+          url: `${siteUrl}/products/${id}`,
+          seller: {
+            "@type": "Organization",
+            name: "Parth Printtech LLP",
+          },
+        },
+        additionalProperty: product.specs?.map((spec) => ({
+          "@type": "PropertyValue",
+          name: spec.label,
+          value: spec.value,
+        })) || [],
+      }
+    : null;
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Products",
+        item: `${siteUrl}/products`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product?.title || "Product Details",
+        item: `${siteUrl}/products/${id}`,
+      },
+    ],
   };
 
   return (
     <>
-      <Navbar />
-      <main ref={containerRef} className={styles.mainContainer}>
-        <div className={styles.blueprintOverlay}></div>
-
-        <div className={styles.container}>
-          {/* Back button */}
-          <div className="detail-reveal" style={{ marginBottom: "40px" }}>
-            <Link href="/products" className={styles.filterBtn} style={{ textDecoration: "none" }}>
-              ← Back
-            </Link>
-          </div>
-
-          <div className={styles.grid} style={{ gridTemplateColumns: "1.1fr 0.9fr", gap: "60px", alignItems: "start" }}>
-            
-            {/* Left Column: Blueprint Visualizer Screen */}
-            <div className="detail-reveal" style={{ position: "sticky", top: "120px" }}>
-              <div className={styles.card} style={{ "--accent-color": product.accentColor, padding: "40px" }}>
-                <div className={styles.cadHeader}>
-                  <span className={styles.cadIndex}>[ {product.num} {"//"} CALIBRATION SOURCE ]</span>
-                  <span className={styles.cadReg}>{product.regMark || "REG-STD"}</span>
-                </div>
-
-                <div className={styles.imageFrame} style={{ aspectRatio: "1.3 / 1" }}>
-                  <div className={styles.frameGrid}></div>
-                  <div className={styles.crosshair}></div>
-                  <div className={styles.dimensionLabel}>{product.dim || "Custom Sizing"}</div>
-                  
-                  <div className={styles.imageWrapper}>
-                    <Image
-                      src={resolveImage(product.image)}
-                      alt={product.title || "Product Image"}
-                      fill
-                      className={styles.productImage}
-                      priority
-                      unoptimized
-                      onError={(e) => {
-                        e.target.src = "/images/products/pvc_shrink_sleeves.png";
-                      }}
-                    />
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            {/* Right Column: Detailed Specification & CTA */}
-            <div className="detail-reveal">
-              <div style={{ display: "flex", flexDirection: "column", gap: "30px" }}>
-                <div>
-                  <span className={styles.categoryLabel}>{product.category}</span>
-                  <h1 className={styles.title} style={{ textAlign: "left", fontSize: "3rem", margin: "10px 0 20px 0" }}>
-                    {product.title}
-                  </h1>
-
-                  {/* High Tech Status/Calibration Indicators */}
-                  <div className={styles.techBadgeRow}>
-                    <span className={`${styles.techBadge} ${styles.badgeSuccess}`}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      Calibration Status: Ready
-                    </span>
-                    <span className={`${styles.techBadge} ${styles.badgeInfo}`}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
-                      </svg>
-                      Tolerance: ±0.1mm
-                    </span>
-                  </div>
-
-                  <p className={styles.description} style={{ textAlign: "left", fontSize: "1.1rem", color: "#475569" }}>
-                    {product.detailedDescription || product.description}
-                  </p>
-                </div>
-
-                {/* Dynamic Spec Sheet Dashboard */}
-                {product.specs && product.specs.length > 0 && (
-                  <div className={styles.specsTable}>
-                    <div className={styles.specsTableHead}>
-                      <span className={styles.specsTableTitle}>CALIBRATION SHEET PARAMETERS</span>
-                      <span className={styles.specsTableSub}>[ REF-IDX-{product.num} ]</span>
-                    </div>
-                    <div className={styles.specsList} style={{ padding: 0 }}>
-                      {product.specs.map((spec, sIdx) => (
-                        <div key={sIdx} className={styles.specRowItem}>
-                          <span className={styles.specRowLabel}>
-                            <span className={styles.listDot}></span>
-                            {spec.label}
-                          </span>
-                          <span className={styles.specRowVal}>{spec.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Quote CTA Button */}
-                <button 
-                  onClick={handleInitiateQuote} 
-                  className={styles.quoteBtn}
-                  style={{
-                    backgroundColor: product.accentColor || "#009fe3",
-                    borderColor: product.accentColor || "#009fe3",
-                    color: "#ffffff",
-                    fontSize: "1.02rem",
-                    padding: "16px",
-                    boxShadow: "0 10px 25px rgba(0, 159, 227, 0.15)",
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: "10px"
-                  }}
-                >
-                  <span>Initiate Quote Calibration →</span>
-                </button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </main>
-      <Footer />
+      {productSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+        />
+      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <ProductDetailPageClient initialProduct={product} />
     </>
   );
-};
-
-export default ProductDetailPage;
+}

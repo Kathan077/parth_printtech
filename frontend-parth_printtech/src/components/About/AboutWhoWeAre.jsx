@@ -32,11 +32,15 @@ const RegistrationMark = ({ style }) => (
   </div>
 );
 
-const AboutWhoWeAre = () => {
+const AboutWhoWeAre = ({ data: initialData }) => {
   const sectionRef = useRef(null);
-  const [data, setData] = useState(initialWhoWeAre);
+  const [data, setData] = useState(initialData ? { ...initialWhoWeAre, ...initialData } : initialWhoWeAre);
 
   useEffect(() => {
+    if (initialData) {
+      setData(initialData);
+      return;
+    }
     async function loadData() {
       try {
         const res = await fetch(`${API_BASE}/about`);
@@ -51,7 +55,7 @@ const AboutWhoWeAre = () => {
       }
     }
     loadData();
-  }, []);
+  }, [initialData]);
 
   useEffect(() => {
     let ctx = gsap.context(() => {

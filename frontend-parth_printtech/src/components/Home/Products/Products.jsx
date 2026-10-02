@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./Products.module.css";
 import { productsData } from "@/app/products/productsData";
+import { getMediaUrl } from "@/lib/media";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -18,7 +19,7 @@ const defaultProductsData = [
     category: "Shrink Sleeves",
     title: "PVC Shrink Sleeves",
     description: "Conform your packaging graphics seamlessly to complex container contours. Our high-precision PVC shrink sleeve labels offer 360-degree design coverage, high moisture resistance, and tamper-evident sealing.",
-    image: "/images/products/pvc_shrink_sleeves.png",
+    image: "/uploads/pvc_srink-1790059064730-853618.png",
     accentColor: "#009fe3",
     specs: [
       { label: "Substrate", value: "High-Grade PVC Film" },
@@ -32,7 +33,7 @@ const defaultProductsData = [
     category: "Shrink Sleeves",
     title: "PETG Shrink Sleeves",
     description: "The pinnacle of shrink label engineering. Made from eco-friendly, recyclable polyester film, these sleeves yield up to 78% shrinkage for heavily contoured containers with absolute clarity.",
-    image: "/images/products/petg_shrink_sleeves.png",
+    image: "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790918214/parth_printtech/WhatsApp_Image_2026-10-02_at_10_42_27-1790918213076-620763_vgtf8v.jpg",
     accentColor: "#e3007b",
     specs: [
       { label: "Substrate", value: "Recyclable PET G Film" },
@@ -46,7 +47,7 @@ const defaultProductsData = [
     category: "Wrap-Around Labels",
     title: "BOPP Wrap-Around Labels",
     description: "Engineered for high-volume, high-speed rotary labeling lines. Our roll-fed BOPP labels offer superior water resistance and high gloss/matte clarity, ideal for carbonated drinks and bottled water.",
-    image: "/images/products/bopp_wrap_around_labels.png",
+    image: "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790676429/parth_printtech/WhatsApp_Image_2026-09-19_at_3_43_42_PM-1790676428065-610975_hzmp8r.jpg",
     imageFit: "contain",
     accentColor: "#ffd400",
     specs: [
@@ -61,7 +62,7 @@ const defaultProductsData = [
     category: "Heat Transfer Labels",
     title: "Heat Transfer Labels (HTL)",
     description: "Experience permanent dry-fusion graphic decoration. Using heat and pressure, graphics bond directly to containers, achieving a seamless 'no-label' look with high chemical and scratch resistance.",
-    image: "/images/products/htl_label_rolls.png",
+    image: "/uploads/WhatsApp_Image_2026-09-22_at_11_27_28_AM-1790059811237-190474.jpeg",
     accentColor: "#111111",
     specs: [
       { label: "Carrier Film", value: "Coated PET Carrier Foil" },
@@ -75,7 +76,7 @@ const defaultProductsData = [
     category: "Shrink Film",
     title: "Plain PVC Shrink Film",
     description: "Premium unprinted PVC shrink film rolls for manual or automated wrapping, offering superior clarity, uniform shrinkage, and strong seals.",
-    image: "/images/products/plain_pvc_shrink_film.png",
+    image: "/uploads/plain_pvc-1790059866645-384544.webp",
     imageFit: "contain",
     accentColor: "#4f46e5",
     specs: [
@@ -238,8 +239,8 @@ const Products = ({ data }) => {
                   <div className={styles.imageFrame} style={{ "--accent-glow": prod.accentColor }}>
                     <div className={`${styles.imageWrapper} ${prod.imageFit === 'contain' || (prod.image && (prod.image.includes('bopp') || prod.image.includes('plain_pvc'))) ? styles.containWrapper : ''} parallax-image-container`}>
                       <Image
-                        src={prod.image || '/images/products/pvc_shrink_sleeves.png'}
-                        alt={prod.title || 'Product Showcase'}
+                        src={getMediaUrl(prod.image, '/uploads/pvc_srink-1790059064730-853618.png')}
+                        alt={`${prod.title || "Packaging Label"} - Parth Printtech`}
                         fill
                         unoptimized
                         className={`${styles.productImage} ${prod.imageFit === 'contain' || (prod.image && (prod.image.includes('bopp') || prod.image.includes('plain_pvc'))) ? styles.containImage : ''} parallax-product-image`}

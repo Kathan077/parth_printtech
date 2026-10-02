@@ -1,554 +1,97 @@
-"use client";
+import { fetchContactData } from "@/lib/api";
+import ContactPageClient from "./ContactPageClient";
 
-import React, { useEffect, useRef, useState } from "react";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
-import gsap from "gsap";
-import styles from "./Contact.module.css";
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || process.env.NEXT_PUBLIC_API_URL || "https://parth-printtech.onrender.com/api";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://parthprinttech.com";
 
-const ContactPage = () => {
-  const containerRef = useRef(null);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    subject: "Custom Packaging",
-    message: ""
-  });
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [copiedAddress, setCopiedAddress] = useState(false);
+export const metadata = {
+  title: "Contact Us & Request Quote | Parth Printtech Kalol Gujarat",
+  description:
+    "Connect with packaging specialists at Parth Printtech LLP for custom shrink sleeve quotes, material samples, and cylinder technical consultations. Factory located in Kalol GIDC, Gandhinagar, Gujarat, India.",
+  keywords: [
+    "Contact Parth Printtech",
+    "Request shrink sleeve quotation",
+    "Packaging film supplier contact number Gujarat",
+    "Parth Printtech Kalol GIDC address",
+    "Bottle label printing inquiry India",
+    "Shrink sleeve sample request"
+  ],
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: "Contact Parth Printtech | Quotations & Packaging Consultation",
+    description:
+      "Reach out to Parth Printtech LLP for premium shrink sleeves, BOPP labels, and HTL quotations. Rapid 24hr response guaranteed.",
+    url: "/contact",
+    images: [
+      {
+        url: "/logo/world_map_blueprint.png",
+        width: 1200,
+        height: 630,
+        alt: "Contact Parth Printtech",
+      },
+    ],
+  },
+};
 
-  const handleCopyAddress = () => {
-    const fullAddr = contactData?.map?.address || "47/8, G.I.D.C., Kalol - 382725 (N.G.), Dist. Gandhinagar, Gujarat, India.";
-    if (typeof navigator !== "undefined" && navigator.clipboard) {
-      navigator.clipboard.writeText(fullAddr);
-      setCopiedAddress(true);
-      setTimeout(() => setCopiedAddress(false), 2500);
-    }
-  };
+export default async function ContactPage() {
+  const contactData = await fetchContactData();
 
-  // Live Contact Content State
-  const [contactData, setContactData] = useState({
-    header: {
-      title: "Let's craft",
-      titleHighlight: "something remarkable",
-      titleRest: "together",
-      description: "Have a custom packaging design in mind or require gravure printing specs? Our packaging specialists are ready to calibrate your next project."
-    },
-    cards: {
+  const contactPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contact Parth Printtech LLP",
+    description: "Contact page for industrial packaging and shrink sleeve inquiries.",
+    url: `${siteUrl}/contact`,
+    mainEntity: {
+      "@type": "LocalBusiness",
+      name: "Parth Printtech LLP",
+      telephone: "+91-9978888056",
       email: "info@parthprinttech.com",
-      emailHint: "Click to open mail client",
-      phone: "+91 99788 88056",
-      phone2: "+91 97247 77606",
-      phoneHint: "Mon - Sat, 9am - 7pm IST",
-      responseTime: "Under 24 Hours",
-      responseTimeHint: "Our engineering team will review your specs within 1 business day."
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "47/8, G.I.D.C., Kalol - 382725 (N.G.)",
+        addressLocality: "Kalol",
+        addressRegion: "Gujarat",
+        postalCode: "382725",
+        addressCountry: "IN",
+      },
     },
-    map: {
-      city: "KALOL",
-      state: "Gandhinagar, Gujarat",
-      address: "47/8, G.I.D.C., Kalol - 382725 (N.G.), Dist. Gandhinagar, Gujarat, India.",
-      mapLink: "https://maps.google.com/?q=GIDC+Kalol+Gandhinagar+Gujarat+India"
-    },
-    socials: {
-      twitter: "https://twitter.com",
-      instagram: "https://instagram.com",
-      linkedin: "https://linkedin.com",
-      dribbble: "https://dribbble.com",
-      github: "https://github.com"
-    },
-    trustBadges: [
-      "Private & secure",
-      "24hr reply",
-      "No spam ever"
-    ]
-  });
-
-  // Fetch Live Contact Page Data
-  useEffect(() => {
-    async function fetchContact() {
-      try {
-        const res = await fetch(`${API_BASE}/contact`);
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.data) {
-            setContactData(prev => ({
-              ...prev,
-              ...json.data,
-              header: { ...prev.header, ...(json.data.header || {}) },
-              cards: { ...prev.cards, ...(json.data.cards || {}) },
-              map: { ...prev.map, ...(json.data.map || {}) },
-              socials: { ...prev.socials, ...(json.data.socials || {}) },
-              trustBadges: Array.isArray(json.data.trustBadges) ? json.data.trustBadges : prev.trustBadges
-            }));
-          }
-        }
-      } catch (err) {
-        console.warn("Using default contact content:", err);
-      }
-    }
-    fetchContact();
-  }, []);
-
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      // Reveal headline & details
-      gsap.fromTo(
-        ".contact-reveal",
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1.2,
-          stagger: 0.15,
-          ease: "power3.out",
-        }
-      );
-    }, containerRef);
-
-    // Parse subject & desc from URL params client-side
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const subjectParam = params.get("subject");
-      const descParam = params.get("desc");
-      
-      let updatedData = {};
-      
-      if (subjectParam) {
-        let mappedSubject = "Custom Packaging";
-        const lower = subjectParam.toLowerCase();
-        if (lower.includes("rigid") || lower.includes("luxury")) {
-          mappedSubject = "Rigid Boxes";
-        } else if (lower.includes("label") || lower.includes("sticker") || lower.includes("print")) {
-          mappedSubject = "Gravure Printing";
-        }
-        updatedData.subject = mappedSubject;
-      }
-      
-      if (descParam) {
-        updatedData.message = descParam;
-      }
-      
-      if (Object.keys(updatedData).length > 0) {
-        const timer = setTimeout(() => {
-          setFormData(prev => ({ ...prev, ...updatedData }));
-        }, 0);
-        return () => {
-          clearTimeout(timer);
-          ctx.revert();
-        };
-      }
-    }
-
-    return () => ctx.revert();
-  }, []);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setErrorMsg("");
-
-    try {
-      // 1. Submit to Web3Forms for direct email delivery
-      try {
-        const web3Key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "a1866527-580b-463f-ad55-e7f56c088ee4";
-        const web3Data = new FormData();
-        web3Data.append("access_key", web3Key);
-        web3Data.append("name", `${formData.firstName} ${formData.lastName}`.trim());
-        web3Data.append("email", formData.email);
-        web3Data.append("subject", `New Website Inquiry: ${formData.subject || 'Custom Packaging'}`);
-        web3Data.append("message", formData.message);
-        web3Data.append("from_name", "Parth Printtech Website");
-
-        fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          body: web3Data
-        }).catch(err => console.warn("Web3Forms email delivery error:", err));
-      } catch (wErr) {
-        console.warn("Web3Forms error:", wErr);
-      }
-
-      // 2. Submit to backend database for Admin Dashboard
-      const res = await fetch(`${API_BASE}/contact/submit`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
-
-      const resJson = await res.json();
-      if (res.ok && resJson.success) {
-        setSubmitted(true);
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          subject: "Custom Packaging",
-          message: ""
-        });
-      } else {
-        setSubmitted(true);
-      }
-    } catch (err) {
-      console.error("Submission error:", err);
-      setSubmitted(true);
-    } finally {
-      setSubmitting(false);
-    }
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Contact Us",
+        item: `${siteUrl}/contact`,
+      },
+    ],
   };
-
-  const { header, cards, map, socials, trustBadges } = contactData;
 
   return (
     <>
-      <Navbar />
-      <main ref={containerRef} className={styles.mainContainer}>
-        {/* Blueprint drafting grids */}
-        <div className={styles.blueprintOverlay}></div>
-
-        <div className={styles.container}>
-          
-          {/* Editorial Headline */}
-          <div className={`${styles.header} contact-reveal`}>
-            <h1 className={styles.headline}>
-              {header.title}{" "}
-              <span className={styles.accentText}>{header.titleHighlight}</span>{" "}
-              {header.titleRest}
-            </h1>
-            <p className={styles.description}>
-              {header.description}
-            </p>
-          </div>
-
-          <div className={`${styles.layoutGrid} contact-reveal`}>
-            
-            {/* Left Column: Info Cards & Stylized Map */}
-            <div className={styles.infoColumn}>
-              
-              {/* Info Cards Container */}
-              <div className={styles.infoCardsGrid}>
-                {/* Email Info Card */}
-                <div className={styles.infoCard}>
-                  <div className={styles.cardHeader}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.cardIcon}>
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                      <polyline points="22,6 12,13 2,6" />
-                    </svg>
-                    <h3 className={styles.cardTitle}>Email Us</h3>
-                  </div>
-                  <a href={`mailto:${cards.email}`} className={styles.cardLink}>
-                    {cards.email}
-                  </a>
-                  <p className={styles.cardHint}>{cards.emailHint}</p>
-                </div>
-
-                {/* Phone Info Card */}
-                <div className={styles.infoCard}>
-                  <div className={styles.cardHeader}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.cardIcon}>
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                    </svg>
-                    <h3 className={styles.cardTitle}>Call Us</h3>
-                  </div>
-                  <a href={`tel:${cards.phone?.replace(/[^0-9+]/g, '')}`} className={styles.cardLink}>
-                    {cards.phone}
-                  </a>
-                  <a href={`tel:${(cards.phone2 || "+91 97247 77606").replace(/[^0-9+]/g, '')}`} className={styles.cardLink}>
-                    {cards.phone2 || "+91 97247 77606"}
-                  </a>
-                  <p className={styles.cardHint}>{cards.phoneHint}</p>
-                </div>
-              </div>
-
-              {/* Response Time Card */}
-              <div className={`${styles.infoCard} ${styles.responseCard}`}>
-                <div className={styles.cardHeader}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.cardIcon}>
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 16 14" />
-                  </svg>
-                  <h3 className={styles.cardTitle}>Estimated Response Time</h3>
-                </div>
-                <div className={styles.responseTimeValue}>{cards.responseTime}</div>
-                <p className={styles.cardHint}>{cards.responseTimeHint}</p>
-              </div>
-
-              {/* Pro Interactive Blueprint & Google Map Card */}
-              <div className={`${styles.infoCard} ${styles.mapCard}`}>
-                
-                {/* HUD Header Bar */}
-                <div className={styles.mapHUDHeader}>
-                  <div className={styles.mapTitleBadge}>
-                    <span className={styles.livePulseDot}></span>
-                    <span>KALOL MANUFACTURING PLANT</span>
-                  </div>
-                </div>
-
-                {/* Map Visual Container */}
-                <div className={styles.mapVisualContainer}>
-                  
-                  {/* HUD Framing & Corners */}
-                  <div className={styles.hudOverlay}>
-                    <div className={styles.hudCornerTL}></div>
-                    <div className={styles.hudCornerTR}></div>
-                    <div className={styles.hudCornerBL}></div>
-                    <div className={styles.hudCornerBR}></div>
-                    <div className={styles.hudCoordsPill}>
-                      23°14'17.2"N 72°29'51.0"E
-                    </div>
-                    <div className={styles.hudPlantPill}>
-                      HQ • SECTOR 47/8
-                    </div>
-                  </div>
-
-                  <iframe
-                    title="Parth Printtech Plant Location"
-                    src="https://maps.google.com/maps?q=47/8%20GIDC%20Kalol%20Gandhinagar%20Gujarat%20382725&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                    className={styles.mapIframe}
-                    loading="lazy"
-                    allowFullScreen
-                  ></iframe>
-
-                </div>
-
-                {/* Footer details & action buttons */}
-                <div className={styles.mapCardFooter}>
-                  <div className={styles.mapAddressRow}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.mapAddressIcon}>
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                      <circle cx="12" cy="10" r="3"/>
-                    </svg>
-                    <p className={styles.mapAddressText}>
-                      {map.address}
-                    </p>
-                  </div>
-                  
-                  <div className={styles.mapCardBtns}>
-                    <a 
-                      href={map.mapLink || "https://maps.google.com/?q=47/8+GIDC+Kalol+Gandhinagar+Gujarat+India"} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className={styles.directionBtn}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <polygon points="3 11 22 2 13 21 11 13 3 11"/>
-                      </svg>
-                      Get Directions
-                    </a>
-                    
-                    <button 
-                      type="button" 
-                      onClick={handleCopyAddress} 
-                      className={styles.copyAddressBtn}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                      </svg>
-                      {copiedAddress ? "Address Copied!" : "Copy Address"}
-                    </button>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Social Media Icons */}
-              <div className={styles.socialRow}>
-                {socials.twitter && (
-                  <a href={socials.twitter} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Twitter">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.svgIcon}>
-                      <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" />
-                    </svg>
-                  </a>
-                )}
-                {socials.instagram && (
-                  <a href={socials.instagram} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Instagram">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.svgIcon}>
-                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                    </svg>
-                  </a>
-                )}
-                {socials.linkedin && (
-                  <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="LinkedIn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.svgIcon}>
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                      <rect x="2" y="9" width="4" height="12" />
-                      <circle cx="4" cy="4" r="2" />
-                    </svg>
-                  </a>
-                )}
-                {socials.dribbble && (
-                  <a href={socials.dribbble} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="Dribbble">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.svgIcon}>
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.49-11.05 1-11.6 8.56" />
-                    </svg>
-                  </a>
-                )}
-                {socials.github && (
-                  <a href={socials.github} target="_blank" rel="noopener noreferrer" className={styles.socialIcon} aria-label="GitHub">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.svgIcon}>
-                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                    </svg>
-                  </a>
-                )}
-              </div>
-
-            </div>
-
-            {/* Right Column: Contact Message Form */}
-            <div className={styles.formColumn}>
-              <div className={styles.formCard}>
-                
-                {submitted ? (
-                  <div className={styles.successBlock}>
-                    <div className={styles.successIconWrapper}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={styles.successIcon}>
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    </div>
-                    <h3 className={styles.successTitle}>Message Sent!</h3>
-                    <p className={styles.successDesc}>
-                      Thank you for contacting Parth Printtech. Our packaging specialists will review your details and get back to you shortly.
-                    </p>
-                    <button 
-                      onClick={() => setSubmitted(false)}
-                      className={styles.resetBtn}
-                    >
-                      Send another message
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className={styles.messageForm}>
-                    {errorMsg && (
-                      <div style={{ background: '#fee2e2', color: '#b91c1c', padding: '10px 14px', borderRadius: '8px', marginBottom: '16px', fontSize: '13px', fontWeight: 600 }}>
-                        {errorMsg}
-                      </div>
-                    )}
-
-                    <div className={styles.formGrid}>
-                      
-                      {/* First name */}
-                      <div className={styles.inputGroup}>
-                        <label htmlFor="firstName" className={styles.inputLabel}>First name</label>
-                        <input 
-                          type="text" 
-                          id="firstName" 
-                          name="firstName" 
-                          required 
-                          value={formData.firstName}
-                          onChange={handleChange}
-                          className={styles.textInput}
-                          placeholder="John"
-                        />
-                      </div>
-
-                      {/* Last name */}
-                      <div className={styles.inputGroup}>
-                        <label htmlFor="lastName" className={styles.inputLabel}>Last name</label>
-                        <input 
-                          type="text" 
-                          id="lastName" 
-                          name="lastName" 
-                          required 
-                          value={formData.lastName}
-                          onChange={handleChange}
-                          className={styles.textInput}
-                          placeholder="Doe"
-                        />
-                      </div>
-
-                    </div>
-
-                    {/* Email */}
-                    <div className={styles.inputGroup}>
-                      <label htmlFor="email" className={styles.inputLabel}>Email address</label>
-                      <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        required 
-                        value={formData.email}
-                        onChange={handleChange}
-                        className={styles.textInput}
-                        placeholder="john@example.com"
-                      />
-                    </div>
-
-                    {/* Subject Dropdown */}
-                    <div className={styles.inputGroup}>
-                      <label htmlFor="subject" className={styles.inputLabel}>Subject of Inquiry</label>
-                      <select 
-                        id="subject" 
-                        name="subject" 
-                        value={formData.subject}
-                        onChange={handleChange}
-                        className={styles.selectInput}
-                      >
-                        <option value="Custom Packaging">Custom Packaging Design</option>
-                        <option value="Gravure Printing">Commercial Gravure Printing</option>
-                        <option value="Rigid Boxes">Rigid Luxury Box Calibration</option>
-                        <option value="General Query">General Partnership Inquiry</option>
-                      </select>
-                    </div>
-
-                    {/* Message Area */}
-                    <div className={styles.inputGroup}>
-                      <label htmlFor="message" className={styles.inputLabel}>Your Message</label>
-                      <textarea 
-                        id="message" 
-                        name="message" 
-                        required 
-                        rows={6}
-                        value={formData.message}
-                        onChange={handleChange}
-                        className={styles.textareaInput}
-                        placeholder="Describe your dimensions, quantity, material preferences or specifications..."
-                      />
-                    </div>
-
-                    {/* Submit Button */}
-                    <button 
-                      type="submit" 
-                      disabled={submitting} 
-                      className={styles.submitButton}
-                    >
-                      <span>{submitting ? "Calibrating..." : "Send message →"}</span>
-                    </button>
-
-                    {/* Trust Badges */}
-                    <div className={styles.trustBadges}>
-                      {(trustBadges || ["Private & secure", "24hr reply", "No spam ever"]).map((badge, bIdx) => (
-                        <span key={bIdx} className={styles.badgeItem}>
-                          <span className={styles.badgeDot}></span> {badge}
-                        </span>
-                      ))}
-                    </div>
-
-                  </form>
-                )}
-
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </main>
-      <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <ContactPageClient initialData={contactData} />
     </>
   );
-};
-
-export default ContactPage;
+}

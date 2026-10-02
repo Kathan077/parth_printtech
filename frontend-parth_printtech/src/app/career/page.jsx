@@ -1,65 +1,70 @@
-"use client";
+import { fetchCareerData } from "@/lib/api";
+import CareerPageClient from "./CareerPageClient";
 
-import React, { useState, useEffect } from 'react';
-import Navbar from '@/components/Navbar/Navbar';
-import CareerHero from '@/components/Career/CareerHero';
-import CareerCulture from '@/components/Career/CareerCulture';
-import CareerProcess from '@/components/Career/CareerProcess';
-import CareerOpenRoles from '@/components/Career/CareerOpenRoles';
-import CareerApply from '@/components/Career/CareerApply';
-import Footer from '@/components/Footer/Footer';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://parth-printtech.onrender.com/api";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://parthprinttech.com";
 
-export default function CareerPage() {
-  const [selectedRole, setSelectedRole] = useState("");
-  const [careerData, setCareerData] = useState(null);
+export const metadata = {
+  title: "Careers at Parth Printtech | Packaging & Printing Industry Jobs",
+  description:
+    "Explore career opportunities at Parth Printtech LLP in Kalol, Gujarat. Join our team in rotogravure printing, packaging engineering, quality assurance, and global sales.",
+  keywords: [
+    "Packaging industry jobs Gujarat",
+    "Printing technician vacancies Kalol",
+    "Rotogravure machine operator jobs",
+    "Parth Printtech careers Gandhinagar",
+    "Industrial packaging careers India"
+  ],
+  alternates: {
+    canonical: "/career",
+  },
+  openGraph: {
+    title: "Careers at Parth Printtech",
+    description:
+      "Build your career in advanced industrial packaging and high-precision rotogravure printing with Parth Printtech LLP.",
+    url: "/career",
+    images: [
+      {
+        url: "/logo/world_map_blueprint.png",
+        width: 1200,
+        height: 630,
+        alt: "Careers at Parth Printtech",
+      },
+    ],
+  },
+};
 
-  useEffect(() => {
-    async function loadData() {
-      try {
-        const res = await fetch(`${API_BASE}/career`);
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.data) {
-            setCareerData(json.data);
-          }
-        }
-      } catch (err) {
-        // Use default fallbacks inside components
-      }
-    }
-    loadData();
-  }, []);
+export default async function CareerPage() {
+  const careerData = await fetchCareerData();
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Careers",
+        item: `${siteUrl}/career`,
+      },
+    ],
+  };
 
   return (
     <>
-      <Navbar />
-      <main style={{ minHeight: '100vh', overflow: 'hidden' }}>
-        <CareerHero
-          heroData={careerData?.hero}
-          activeRolesCount={careerData?.roles?.length || 12}
-        />
-        <CareerCulture
-          cultureData={careerData?.culture}
-        />
-        <CareerProcess
-          processData={careerData?.process}
-        />
-        <CareerOpenRoles
-          rolesData={careerData?.roles}
-          onSelectRole={setSelectedRole}
-        />
-        <CareerApply
-          contactData={careerData?.contact}
-          rolesList={careerData?.roles}
-          selectedRole={selectedRole}
-          onChangeRole={setSelectedRole}
-        />
-      </main>
-      <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <CareerPageClient initialData={careerData} />
     </>
   );
 }
-
-

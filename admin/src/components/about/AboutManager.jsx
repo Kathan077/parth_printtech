@@ -869,14 +869,14 @@ export default function AboutManager() {
                   {/* Settings & Upload */}
                   <div>
                     <div className="form-group" style={{ marginBottom: '12px' }}>
-                      <label className="form-label">Overlay Badge Text</label>
-                      <input
+                      {/* <label className="form-label">Overlay Badge Text</label> */}
+                      {/* <input
                         type="text"
                         className="form-input"
                         value={aboutData.founders?.badgeText || ''}
                         onChange={(e) => handleFieldChange('founders', 'badgeText', e.target.value)}
                         placeholder="FOUNDERS & DIRECTORS"
-                      />
+                      /> */}
                     </div>
 
                     <div className="form-group" style={{ marginBottom: '12px' }}>
@@ -1393,8 +1393,8 @@ export default function AboutManager() {
           modalType === 'visionCard'
             ? (editingIndex !== null ? `Edit Pillar: ${modalForm.title || ''}` : 'Add New Pillar Card')
             : modalType === 'founder'
-            ? (editingIndex !== null ? `Edit Founder: ${modalForm.name || ''}` : 'Add New Founder Profile')
-            : 'Configure Item'
+              ? (editingIndex !== null ? `Edit Founder: ${modalForm.name || ''}` : 'Add New Founder Profile')
+              : 'Configure Item'
         }
         subtitle="Configure the values, label copy, and details."
         icon={modalType === 'visionCard' ? Target : Users}

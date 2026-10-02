@@ -24,9 +24,7 @@ const defaultContactData = {
   socials: {
     twitter: "https://twitter.com",
     instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    dribbble: "https://dribbble.com",
-    github: "https://github.com"
+    linkedin: "https://linkedin.com"
   },
   trustBadges: [
     "Private & secure",

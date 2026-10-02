@@ -120,11 +120,15 @@ const VisionMissionCard = ({ card, index }) => {
   );
 };
 
-const AboutVisionMission = () => {
+const AboutVisionMission = ({ data: initialData }) => {
   const containerRef = useRef(null);
-  const [data, setData] = useState(initialVisionMission);
+  const [data, setData] = useState(initialData ? { ...initialVisionMission, ...initialData } : initialVisionMission);
 
   useEffect(() => {
+    if (initialData) {
+      setData(initialData);
+      return;
+    }
     async function loadData() {
       try {
         const res = await fetch(`${API_BASE}/about`);
@@ -139,7 +143,7 @@ const AboutVisionMission = () => {
       }
     }
     loadData();
-  }, []);
+  }, [initialData]);
 
   useEffect(() => {
     let ctx = gsap.context(() => {

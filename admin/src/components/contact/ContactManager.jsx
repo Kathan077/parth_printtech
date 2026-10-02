@@ -55,9 +55,7 @@ const initialContactState = {
   socials: {
     twitter: "https://twitter.com",
     instagram: "https://instagram.com",
-    linkedin: "https://linkedin.com",
-    dribbble: "https://dribbble.com",
-    github: "https://github.com"
+    linkedin: "https://linkedin.com"
   },
   trustBadges: [
     "Private & secure",
@@ -69,9 +67,11 @@ const initialContactState = {
 
 const INQUIRY_SUBJECTS = [
   "Custom Packaging",
+  "Size & Design",
   "Gravure Printing",
   "Rigid Boxes",
-  "General Query"
+  "General Query",
+  "Other"
 ];
 
 const STATUS_OPTIONS = ["New", "In Progress", "Contacted", "Resolved"];
@@ -543,8 +543,8 @@ export default function ContactManager() {
             </button>
           </div>
 
-          <div className="form-grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-            <div className="form-group">
+          <div className="form-grid" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+            <div className="form-group" style={{ marginBottom: 0 }}>
               <label className="form-label">Twitter / X URL</label>
               <input
                 type="text"
@@ -553,7 +553,7 @@ export default function ContactManager() {
                 onChange={(e) => handleNestedField('socials', 'twitter', e.target.value)}
               />
             </div>
-            <div className="form-group">
+            <div className="form-group" style={{ marginBottom: 0 }}>
               <label className="form-label">Instagram URL</label>
               <input
                 type="text"
@@ -562,9 +562,6 @@ export default function ContactManager() {
                 onChange={(e) => handleNestedField('socials', 'instagram', e.target.value)}
               />
             </div>
-          </div>
-
-          <div className="form-grid" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
             <div className="form-group" style={{ marginBottom: 0 }}>
               <label className="form-label">LinkedIn URL</label>
               <input
@@ -572,24 +569,6 @@ export default function ContactManager() {
                 className="form-input"
                 value={contactData.socials?.linkedin || ''}
                 onChange={(e) => handleNestedField('socials', 'linkedin', e.target.value)}
-              />
-            </div>
-            <div className="form-group" style={{ marginBottom: 0 }}>
-              <label className="form-label">Dribbble URL</label>
-              <input
-                type="text"
-                className="form-input"
-                value={contactData.socials?.dribbble || ''}
-                onChange={(e) => handleNestedField('socials', 'dribbble', e.target.value)}
-              />
-            </div>
-            <div className="form-group" style={{ marginBottom: 0 }}>
-              <label className="form-label">GitHub URL</label>
-              <input
-                type="text"
-                className="form-input"
-                value={contactData.socials?.github || ''}
-                onChange={(e) => handleNestedField('socials', 'github', e.target.value)}
               />
             </div>
           </div>

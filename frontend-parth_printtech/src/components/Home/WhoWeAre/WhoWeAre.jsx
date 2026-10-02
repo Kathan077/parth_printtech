@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./WhoWeAre.module.css";
+import { getMediaUrl } from "@/lib/media";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -15,7 +16,7 @@ const defaultWhoWeAre = {
   headingLine2Highlight: "Rotogravure",
   headingLine2Rest: "Printing.",
   description: "At Parth Printtech, we redefine flexible packaging through advanced engineering and high-speed precision. Powered by our state-of-the-art Polaris S7 Series multi-station rotogravure press, we deliver micron-accurate printing on PVC, PETG, and BOPP shrink films with unmatched color fidelity and razor-sharp registration.",
-  image: "/images/polaris_s7_series.png",
+  image: "/uploads/printing_machine-1790077709022-574694.png",
   badgeText: "• POLARIS S7 ROTOGRAVURE • PARTH PRINTTECH •",
   features: [
     "Electronic Line Shaft (ELS) Drive",
@@ -181,8 +182,14 @@ const WhoWeAre = ({ data }) => {
             <div className={styles.mediaWrapper}>
               <img
                 className={`${styles.mediaElement} creative-media`}
-                src={content.image || "/images/polaris_s7_series.png"}
+                src={getMediaUrl(content.image, "/uploads/printing_machine-1790077709022-574694.png")}
                 alt="Polaris S7 Series Rotogravure Printing Press - Polygraph"
+                onError={(e) => {
+                  if (!e.currentTarget.dataset.failed) {
+                    e.currentTarget.dataset.failed = "true";
+                    e.currentTarget.src = "/images/polaris_s7_series.png";
+                  }
+                }}
               />
             </div>
 

@@ -5,7 +5,7 @@ export const productsData = [
     category: "Shrink Sleeves",
     title: "PVC Shrink Sleeves",
     description: "High-grade PVC shrink sleeve labels offering 360-degree graphics contouring for food, beverage, cosmetics, and household containers.",
-    image: "/images/products/pvc_shrink_sleeves.png",
+    image: "/uploads/pvc_srink-1790059064730-853618.png",
     accentColor: "#009fe3",
     dim: "Custom Diameter & Height",
     regMark: "REG-PVC-01",
@@ -25,7 +25,7 @@ export const productsData = [
     category: "Shrink Sleeves",
     title: "PETG Shrink Sleeves",
     description: "Premium eco-friendly polyester shrink sleeves with maximum shrinkage percentage for highly contoured beverage and aerosol bottles.",
-    image: "/images/products/petg_shrink_sleeves.jpg",
+    image: "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790918214/parth_printtech/WhatsApp_Image_2026-10-02_at_10_42_27-1790918213076-620763_vgtf8v.jpg",
     accentColor: "#e3007b",
     dim: "Custom Contour Fit",
     regMark: "REG-PETG-02",
@@ -45,7 +45,7 @@ export const productsData = [
     category: "Wrap-Around Labels",
     title: "BOPP Wrap-Around Labels",
     description: "High-speed roll-fed BOPP wrap-around labels with superior water/scuff resistance, ideal for mineral water and carbonated drinks.",
-    image: "/images/products/ChatGPT Image Sep 18, 2026, 05_07_28 PM.png",
+    image: "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790676429/parth_printtech/WhatsApp_Image_2026-09-19_at_3_43_42_PM-1790676428065-610975_hzmp8r.jpg",
     accentColor: "#ffd400",
     dim: "Roll Format / Cut-and-Stack",
     regMark: "REG-BOPP-03",
@@ -65,7 +65,7 @@ export const productsData = [
     category: "Heat Transfer Labels",
     title: "Heat Transfer Labels (HTL)",
     description: "Dry-fusion decoration labels that permanently bond graphics to plastic containers, creating a seamless, scratch-proof 'no-label' look.",
-    image: "/images/products/ChatGPT Image Sep 18, 2026, 03_08_38 PM.png",
+    image: "/uploads/WhatsApp_Image_2026-09-22_at_11_27_28_AM-1790059811237-190474.jpeg",
     accentColor: "#009fe3",
     dim: "Custom Fusion Profile",
     regMark: "REG-HTL-04",
@@ -85,7 +85,7 @@ export const productsData = [
     category: "Shrink Film",
     title: "Plain PVC Shrink Film",
     description: "Premium unprinted PVC shrink film rolls for manual or automated wrapping, offering superior clarity, uniform shrinkage, and strong seals.",
-    image: "/images/products/plain_pvc_shrink_film.png",
+    image: "/uploads/plain_pvc-1790059866645-384544.webp",
     accentColor: "#4f46e5",
     dim: "Custom Roll Width & Length",
     regMark: "REG-PVC-05",
@@ -100,4 +100,3 @@ export const productsData = [
     ]
   }
 ];
-

@@ -24,7 +24,7 @@ const defaultFoundersData = {
   title: "Meet Our",
   titleHighlight: "Founders",
   description: "Driven by technical innovation and an unwavering commitment to packaging excellence.",
-  image: "/images/clients/world_map_blueprint.png",
+  image: "/uploads/founder-1790067252859-913783.webp",
   badgeText: "FOUNDERS & DIRECTORS",
   foundersList: [
     {
@@ -46,11 +46,21 @@ const resolveMedia = (src, fallback) => {
   return getMediaUrl(src, fallback);
 };
 
-const AboutFounders = () => {
+const AboutFounders = ({ data: initialData }) => {
   const sectionRef = useRef(null);
-  const [data, setData] = useState(defaultFoundersData);
+  const [data, setData] = useState(initialData ? { ...defaultFoundersData, ...initialData } : defaultFoundersData);
 
   useEffect(() => {
+    if (initialData) {
+      setData((prev) => ({
+        ...prev,
+        ...initialData,
+        foundersList: initialData.foundersList && initialData.foundersList.length > 0
+          ? initialData.foundersList
+          : prev.foundersList
+      }));
+      return;
+    }
     async function loadFoundersData() {
       try {
         const res = await fetch(`${API_BASE}/about`, { cache: "no-store" });
@@ -71,7 +81,7 @@ const AboutFounders = () => {
       }
     }
     loadFoundersData();
-  }, []);
+  }, [initialData]);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -150,20 +160,17 @@ const AboutFounders = () => {
             <div className={styles.imageFrame}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={resolveMedia(data.image, "/images/clients/world_map_blueprint.png")}
+                src={resolveMedia(data.image, "/uploads/founder-1790067252859-913783.webp")}
                 alt="Parth Printtech Founders"
                 className={styles.founderImage}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 onError={(e) => {
                   if (!e.currentTarget.dataset.failed) {
                     e.currentTarget.dataset.failed = "true";
-                    e.currentTarget.src = "/images/world_map_blueprint.png";
+                    e.currentTarget.src = "/images/clients/world_map_blueprint.png";
                   }
                 }}
               />
-              <div className={styles.imageOverlayBadge}>
-                <span>{data.badgeText || "FOUNDERS & DIRECTORS"}</span>
-              </div>
             </div>
           </div>
 

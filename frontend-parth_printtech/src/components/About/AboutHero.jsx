@@ -16,16 +16,20 @@ const initialHero = {
   videoSrc: "/videos/video-3.mp4",
   ctaText: "Get a Quote",
   ctaLink: "/contact",
-  image1: "/images/Who_We_Are.jpg",
-  image2: "/images/products/bopp_label.png",
-  image3: "/images/products/pvc_shrink_sleeves.png"
+  image1: "/uploads/printing_machine-1790059952713-165653.png",
+  image2: "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790676874/parth_printtech/WhatsApp_Image_2026-09-28_at_4_03_39_PM-1790676873044-70241_ri9yqg.jpg",
+  image3: "/uploads/pvc_srink-1790060003259-926634.png"
 };
 
-const AboutHero = () => {
+const AboutHero = ({ data }) => {
   const containerRef = useRef(null);
-  const [heroData, setHeroData] = useState(initialHero);
+  const [heroData, setHeroData] = useState(data ? { ...initialHero, ...data } : initialHero);
 
   useEffect(() => {
+    if (data) {
+      setHeroData((prev) => ({ ...prev, ...data }));
+      return;
+    }
     async function loadAboutHero() {
       try {
         const res = await fetch(`${API_BASE}/about`, { cache: "no-store" });
@@ -43,7 +47,7 @@ const AboutHero = () => {
       }
     }
     loadAboutHero();
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     let ctx = gsap.context(() => {
