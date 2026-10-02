@@ -20,14 +20,14 @@ export function getMediaUrl(src, fallback = '') {
     return clean;
   }
 
-  // 2. Normalize any legacy localhost:5000 paths to relative paths
-  if (clean.includes('localhost:5000/uploads/')) {
-    return clean.replace(/https?:\/\/localhost:5000/gi, '');
+  // 2. Normalize any legacy localhost:5000 paths to backend base
+  if (clean.includes('localhost:5000')) {
+    return clean.replace(/https?:\/\/localhost:5000/gi, BACKEND_BASE);
   }
 
-  // 3. Relative uploads: served directly from public/uploads with zero latency
+  // 3. Relative uploads: prefix with backend base so uploaded files load from backend server
   if (clean.startsWith('/uploads/')) {
-    return clean;
+    return `${BACKEND_BASE}${clean}`;
   }
 
   return clean;

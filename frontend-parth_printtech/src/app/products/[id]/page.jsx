@@ -25,7 +25,7 @@ const ProductDetailPage = () => {
   useEffect(() => {
     async function loadProd() {
       try {
-        const res = await fetch(`${API_BASE}/products/${params.id}`);
+        const res = await fetch(`${API_BASE}/products/${params.id}`, { cache: "no-store" });
         if (res.ok) {
           const json = await res.json();
           if (json.success && json.data) {
