@@ -1135,7 +1135,7 @@ const PremiumMarketsWeServe = () => {
 
                 {/* Explore Category Link */}
                 <Link href={`/contact?subject=Inquiry for ${cat.title}`} className={styles.categoryBtn}>
-                  <span>For &amp; Inquire →</span>
+                  <span>For Inquire →</span>
                 </Link>
               </div>
             ))}
