@@ -1,0 +1,14 @@
+{
+  "name": "parth-printtech-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "cd frontend-parth_printtech && npm install",
+    "build": "cd frontend-parth_printtech && npm run build",
+    "start": "cd frontend-parth_printtech && npm run start",
+    "dev": "cd frontend-parth_printtech && npm run dev"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
