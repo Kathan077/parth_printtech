@@ -17,21 +17,21 @@
         "isActive": true
       },
       {
-        "id": 2,
-        "videoSrc": "/videos/0918(2) (1).mp4",
-        "title": "Custom ",
-        "titleHighlight": "Label Solutions",
-        "subtitle": "Vibrant shrink sleeves and wrap-around labels custom-calibrated to container shapes.",
-        "ctaText": "Explore Services",
-        "ctaLink": "/products",
-        "isActive": true
-      },
-      {
         "id": 3,
         "videoSrc": "/videos/0918(2) (1).mp4",
         "title": "Premium",
         "titleHighlight": "Shrink Films",
         "subtitle": "Plain and printed packaging films engineered to protect and showcase your products.",
+        "ctaText": "Explore Services",
+        "ctaLink": "/products",
+        "isActive": true
+      },
+      {
+        "id": 2,
+        "videoSrc": "/videos/0918(2) (1).mp4",
+        "title": "Custom ",
+        "titleHighlight": "Label Solutions",
+        "subtitle": "Vibrant shrink sleeves and wrap-around labels custom-calibrated to container shapes.",
         "ctaText": "Explore Services",
         "ctaLink": "/products",
         "isActive": true
@@ -84,7 +84,7 @@
       ],
       "stats": [
         {
-          "num": "9+",
+          "num": "10+",
           "label": "Color Stations",
           "backText": "Multi-station Polaris S7 rotogravure press with automated ink circulation & viscosity management."
         },
@@ -120,7 +120,7 @@
             "Shrink Sleeves",
             "Contour Labels"
           ],
-          "accentColor": "#ff7a00"
+          "accentColor": "#000000"
         },
         {
           "id": "beverages",
@@ -256,7 +256,7 @@
           "category": "Shrink Sleeves",
           "title": "PETG Shrink Sleeves",
           "description": "The pinnacle of shrink label engineering. Made from eco-friendly, recyclable polyester film, these sleeves yield up to 78% shrinkage for heavily contoured containers with absolute clarity.",
-          "image": "/uploads/petg_shrink_sleeves-1790056769229-562694.png",
+          "image": "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790918251/parth_printtech/WhatsApp_Image_2026-10-02_at_10_42_27-1790918250661-183086_dfeifh.jpg",
           "accentColor": "#e3007b",
           "specs": [
             {
@@ -382,7 +382,21 @@
           "name": "Gokul Sweets",
           "brand": "Gokul Sweets",
           "color": "#4caf50",
-          "logoUrl": "/logo/gokul.png"
+          "logoUrl": "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790918437/parth_printtech/gokul-1790918436737-599282_gufypi.jpg"
+        },
+        {
+          "id": 1790918494175,
+          "name": "varuna",
+          "brand": "varuna",
+          "color": "#009fe3",
+          "logoUrl": "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790918536/parth_printtech/New-Varuna-Logo-Transparent-1790918535824-83161_wvlqds.png"
+        },
+        {
+          "id": 1790918631344,
+          "name": "unnati pump",
+          "brand": "unnati pump",
+          "color": "#009fe3",
+          "logoUrl": "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790918641/parth_printtech/unnamed-1790918641270-477017_cnvrdu.png"
         }
       ]
     },
@@ -410,15 +424,6 @@
           "avatarColor": "#009fe3"
         },
         {
-          "id": 3,
-          "client": "Samantha D'Souza",
-          "role": "Supply Chain Lead",
-          "company": "NutriFoods India",
-          "quote": "Excellent barrier properties on the stand-up pouches. The zip locks are robust and oxygen-barrier laminates keep our organic coffee perfectly fresh.",
-          "rating": 5,
-          "avatarColor": "#4caf50"
-        },
-        {
           "id": 4,
           "client": "Dr. Vikram Mehta",
           "role": "QA Director",
@@ -428,24 +433,6 @@
           "avatarColor": "#00bcd4"
         },
         {
-          "id": 5,
-          "client": "Meera Sen",
-          "role": "Marketing Manager",
-          "company": "Urban Retail Group",
-          "quote": "Their toolless assembly standees are a massive hit in retail stores. Sturdy sunboard structure and vivid direct UV prints that pop under store lights.",
-          "rating": 5,
-          "avatarColor": "#e91e63"
-        },
-        {
-          "id": 6,
-          "client": "Kabir Malhotra",
-          "role": "Plant Manager",
-          "company": "Apex Lubricants",
-          "quote": "Industrial grease canisters need labels that resist chemicals and oils. Parth's high-tack drum stickers endure harsh handling and rough weather.",
-          "rating": 5,
-          "avatarColor": "#607d8b"
-        },
-        {
           "id": 7,
           "client": "Neha Gupta",
           "role": "Founder",
@@ -453,15 +440,6 @@
           "quote": "The custom textured rigid boxes with magnetic closures look stunning. Our luxury gift boxes feel incredibly premium, and customers love them.",
           "rating": 5,
           "avatarColor": "#9c27b0"
-        },
-        {
-          "id": 8,
-          "client": "Arjun Reddy",
-          "role": "Logistics Manager",
-          "company": "Krishi Fertilizers",
-          "quote": "We ordered high-volume heavy-duty Kraft liner cases. Crushing resistance is top-tier; not a single package collapsed during transit.",
-          "rating": 5,
-          "avatarColor": "#ff5722"
         }
       ]
     },
@@ -560,7 +538,7 @@
       "category": "Shrink Sleeves",
       "title": "PETG Shrink Sleeves",
       "description": "Premium eco-friendly polyester shrink sleeves with maximum shrinkage percentage for highly contoured beverage and aerosol bottles.",
-      "image": "/uploads/petg-1790059728893-351007.webp",
+      "image": "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790918214/parth_printtech/WhatsApp_Image_2026-10-02_at_10_42_27-1790918213076-620763_vgtf8v.jpg",
       "accentColor": "#e3007b",
       "dim": "Custom Contour Fit",
       "regMark": "REG-PETG-02",
@@ -751,19 +729,19 @@
       "titleHighlight": "Founders",
       "description": "Driven by technical innovation and an unwavering commitment to packaging excellence.",
       "image": "/uploads/founder-1790067252859-913783.webp",
-      "badgeText": "FOUNDERS & DIRECTORS",
+      "badgeText": "",
       "foundersList": [
         {
           "id": "1",
           "index": "01",
           "name": "Parth Patel",
-          "description": "Leading strategic vision and technology adoption in high-precision shrink sleeves and printing innovation."
+          "description": "Founder of a  Parth Printtech LLP, Driving Excellence Through  10 years of hands-on experience, he has gained deep knowledge of printing and production. Today, he handles the overall operations at Parth Printtech LLP, bringing practical experience, quality, and a strong focus on growth."
         },
         {
           "id": "2",
           "index": "02",
           "name": "Shailesh Patel",
-          "description": "Pioneering industrial print engineering, rotogravure calibrations, and operational excellence across commercial markets."
+          "description": "Managing Director of a  Parth Printtech LLP, he looks after accounts and financial operations, contributing to the company’s continued growth.\nHe previously founded Parth Products in 2009, which grew into a Group of Company with a strong foundation in industrial excellence."
         }
       ]
     },
@@ -894,7 +872,7 @@
         "desc": "Premium eco-friendly polyester shrink sleeves with maximum shrinkage percentage for highly contoured beverage and aerosol bottles.",
         "badge": "Eco Clarity",
         "accentColor": "#e3007b",
-        "photo": "/uploads/petg-1790069892602-610223.webp",
+        "photo": "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790918117/parth_printtech/WhatsApp_Image_2026-10-02_at_10_42_27-1790918116601-181650_x03jrv.jpg",
         "specs": [
           {
             "label": "Substrate",
@@ -1114,7 +1092,7 @@
           },
           {
             "badge": "High Tension",
-            "detail": "Tensile BOPP film prevents tearing at 800 BPM speed."
+            "detail": "Tensile BOPP film prevents tearing at 400 BPM speed."
           },
           {
             "badge": "Barcode Zone",
@@ -1195,7 +1173,7 @@
         "subtitle": "Pharma Vials, Syringes & Vaccine Bottles",
         "badge": "Healthcare Grade",
         "accentColor": "#10b981",
-        "photo": "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790678494/parth_printtech/WhatsApp_Image_2026-09-29_at_4_05_44_PM__1_-1790678493864-324897_cqbrwe.jpg",
+        "photo": "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790921521/parth_printtech/WhatsApp_Image_2026-10-02_at_11_37_09-1790921520585-619745_xdbxlk.jpg",
         "containerType": "Glass Vials, PET Syrup Bottles & Syringes",
         "uses": [
           "Vaccine Vials & Injectable Syringes",
@@ -1233,54 +1211,6 @@
           {
             "label": "Temp Rating",
             "value": "Resistant down to -80°C"
-          }
-        ]
-      },
-      {
-        "id": "use-chemical-jugs",
-        "category": "Chemicals & Industrial",
-        "title": "Scuff-Proof Chemical & Lube Container Labels",
-        "subtitle": "Industrial Drums, Oil Cans & Agrochemical Jugs",
-        "badge": "Industrial Duty",
-        "accentColor": "#f59e0b",
-        "photo": "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790678556/parth_printtech/WhatsApp_Image_2026-09-29_at_4_05_44_PM__2_-1790678555708-254312_mnbszz.jpg",
-        "containerType": "HDPE Jerricans, Drums & Lubricant Cans",
-        "uses": [
-          "Motor Oil & Engine Lubricant Cans",
-          "Agrochemical & Pesticide Bottles",
-          "Household Detergent & Cleaner Jugs",
-          "Industrial Chemical Solvent Drums"
-        ],
-        "hotspots": [
-          {
-            "badge": "Heavy Tack",
-            "detail": "Extra permanent glue engineered for textured HDPE plastic."
-          },
-          {
-            "badge": "Chemical Guard",
-            "detail": "Over-laminated film shields against chemical spills."
-          },
-          {
-            "badge": "GHS Standard",
-            "detail": "GHS hazard warning pictograms in crisp, fade-free ink."
-          }
-        ],
-        "specs": [
-          {
-            "label": "UV Warranty",
-            "value": "2+ Years Outdoor Fastness"
-          },
-          {
-            "label": "Substrate",
-            "value": "Vinyl / Laminated Polypropylene"
-          },
-          {
-            "label": "Adhesive",
-            "value": "Extra Permanent Solvent Acrylic"
-          },
-          {
-            "label": "Durability",
-            "value": "Acid, Solvent & Weather Proof"
           }
         ]
       },
@@ -1352,7 +1282,7 @@
         "desc": "Ultra-clear polyester films offering extreme shrinkage profiles and minimal carbon footprint for sustainability.",
         "metric": "100% Recyclable Polyester",
         "accent": "#e3007b",
-        "photo": "/uploads/petg-1790071011048-288198.webp"
+        "photo": "https://res.cloudinary.com/oeqdmjr7/image/upload/v1790918865/parth_printtech/WhatsApp_Image_2026-10-02_at_10_42_27-1790918864988-861567_fch8hq.jpg"
       },
       {
         "id": "bopp-wrap-around-labels",
@@ -1450,19 +1380,19 @@
     "metrics": [
       {
         "id": "orders",
-        "target": 10000,
+        "target": 5000,
         "suffix": "+",
         "label": "Orders Completed"
       },
       {
         "id": "clients",
-        "target": 2500,
+        "target": 150,
         "suffix": "+",
         "label": "Happy Clients"
       },
       {
         "id": "sat",
-        "target": 99,
+        "target": 100,
         "suffix": "%",
         "label": "Customer Satisfaction"
       },
@@ -1658,148 +1588,16 @@
     },
     "roles": [
       {
-        "id": "role-1",
-        "title": "Senior Print Production Technician",
-        "dept": "Production",
-        "location": "Gujarat, India",
-        "type": "Full-time",
-        "experience": "4–7 yrs",
-        "isNew": true,
-        "isActive": true,
-        "description": "Operate high-speed gravure and flexographic presses with micron accuracy and register consistency.",
-        "requirements": [
-          "Diploma / Degree in Printing Tech",
-          "4+ years operating rotogravure machines",
-          "Color matching & pre-flight knowledge"
-        ]
-      },
-      {
-        "id": "role-2",
-        "title": "Packaging Design Engineer",
-        "dept": "Design",
-        "location": "Gujarat, India",
-        "type": "Full-time",
-        "experience": "2–5 yrs",
-        "isNew": false,
-        "isActive": true,
-        "description": "Develop 3D packaging mockups, CAD contour fits, and pre-press prep for shrink sleeves and BOPP wrap labels.",
-        "requirements": [
-          "Proficiency in Adobe Illustrator, Photoshop & ESKO",
-          "Experience with shrink distortion calibration",
-          "Knowledge of CMYK & Spot Color separations"
-        ]
-      },
-      {
-        "id": "role-3",
-        "title": "Quality Control & Inspection Lead",
-        "dept": "QC",
-        "location": "Gujarat, India",
-        "type": "Full-time",
-        "experience": "3–6 yrs",
-        "isNew": true,
-        "isActive": true,
-        "description": "Lead comprehensive quality checks, optical scuff tests, barcode grade scans, and shrink ratio verifications.",
-        "requirements": [
-          "Experience in packaging QC & ISO standards",
-          "Knowledge of spectrophotometer & rub resistance testing",
-          "Attention to detail & reporting skills"
-        ]
-      },
-      {
-        "id": "role-4",
-        "title": "Sales Executive – Print & Packaging",
+        "id": "role-1790924709063",
+        "title": "sales executive ",
         "dept": "Sales",
-        "location": "Gujarat / Remote",
-        "type": "Full-time",
-        "experience": "2–4 yrs",
-        "isNew": false,
-        "isActive": true,
-        "description": "Drive B2B sales of custom shrink sleeves, BOPP labels, and flexible packaging solutions to FMCG and Pharma clients.",
-        "requirements": [
-          "Proven B2B sales track record in print/packaging",
-          "Strong communication & negotiation skills",
-          "Ability to manage client relationship pipelines"
-        ]
-      },
-      {
-        "id": "role-5",
-        "title": "Gravure Press Operator",
-        "dept": "Production",
         "location": "Gujarat, India",
         "type": "Full-time",
-        "experience": "3–8 yrs",
-        "isNew": false,
-        "isActive": true,
-        "description": "Supervise cylinder setup, ink viscosity, web tension, and solvent regulation during high-speed printing runs.",
-        "requirements": [
-          "Extensive rotogravure experience",
-          "Understanding of PVC & PETG shrink films",
-          "Machine maintenance & troubleshooting skills"
-        ]
-      },
-      {
-        "id": "role-6",
-        "title": "Graphic Design Specialist (Pre-press)",
-        "dept": "Design",
-        "location": "Gujarat, India",
-        "type": "Full-time",
-        "experience": "1–3 yrs",
+        "experience": " 1-2 year ",
         "isNew": true,
         "isActive": true,
-        "description": "Transform customer brand vectors into press-ready cylinder engravings with trapping, bleeding, and barcode checks.",
-        "requirements": [
-          "Degree/Certification in Graphic Design",
-          "Mastery in Vector Artwork & Pre-press Workflow",
-          "Knowledge of print separations & spot lacquers"
-        ]
-      },
-      {
-        "id": "role-7",
-        "title": "Supply Chain & Procurement Manager",
-        "dept": "Operations",
-        "location": "Gujarat, India",
-        "type": "Full-time",
-        "experience": "5–9 yrs",
-        "isNew": false,
-        "isActive": true,
-        "description": "Oversee raw material sourcing for polymer films, specialized inks, adhesives, and dispatch logistics across India.",
-        "requirements": [
-          "5+ years procurement in plastics/packaging",
-          "Vendor negotiation & contract management",
-          "ERP and inventory tracking proficiency"
-        ]
-      },
-      {
-        "id": "role-8",
-        "title": "HR & Talent Acquisition Executive",
-        "dept": "HR",
-        "location": "Gujarat, India",
-        "type": "Full-time",
-        "experience": "1–3 yrs",
-        "isNew": true,
-        "isActive": true,
-        "description": "Manage candidate pipelines, conduct screening interviews, organize employee training, and uphold safety cultures.",
-        "requirements": [
-          "MBA / BBA in Human Resources",
-          "Strong interpersonal & recruiting skills",
-          "Knowledge of labor regulations & HR best practices"
-        ]
-      },
-      {
-        "id": "role-9",
-        "title": "Junior Sales Intern – B2B",
-        "dept": "Sales",
-        "location": "Remote",
-        "type": "Internship",
-        "experience": "0–1 yr",
-        "isNew": true,
-        "isActive": true,
-        "description": "Assist the sales team in market research, client outreach, lead qualification, and sample kit dispatch.",
-        "requirements": [
-          "Enthusiastic graduate with marketing/business passion",
-          "Good verbal & written communication",
-          "Willingness to learn industrial packaging sales"
-        ]
+        "description": "Responsible for lead generation, customer follow-ups, sales coordination, relationship management, and converting prospects into customers, with industry experience in the packaging sector.",
+        "requirements": []
       }
     ],
     "contact": {
@@ -1813,7 +1611,52 @@
       "phone": "+91 99788 88056"
     }
   },
-  "contactInquiries": [],
+  "contactInquiries": [
+    {
+      "id": "inq-1790926359264",
+      "firstName": "Kathan",
+      "lastName": "Patel",
+      "fullName": "Kathan Patel",
+      "email": "kathanpatel099@gmail.com",
+      "subject": "Gravure Printing",
+      "message": "fghjk",
+      "status": "New",
+      "submittedAt": "2026-10-02T07:32:39.264Z"
+    },
+    {
+      "id": "inq-1790842329832",
+      "firstName": "Kathan",
+      "lastName": "Patel",
+      "fullName": "Kathan Patel",
+      "email": "kathanpatel099@gmail.com",
+      "subject": "Rigid Boxes",
+      "message": "SSS",
+      "status": "New",
+      "submittedAt": "2026-10-01T08:12:09.832Z"
+    },
+    {
+      "id": "inq-1790840949396",
+      "firstName": "test 2",
+      "lastName": "Patel",
+      "fullName": "test 2 Patel",
+      "email": "kathanpatel099@gmail.com",
+      "subject": "Gravure Printing",
+      "message": "test 2",
+      "status": "New",
+      "submittedAt": "2026-10-01T07:49:09.396Z"
+    },
+    {
+      "id": "inq-1790840908924",
+      "firstName": "Kathan",
+      "lastName": "Patel",
+      "fullName": "Kathan Patel",
+      "email": "kathanpatel099@gmail.com",
+      "subject": "Gravure Printing",
+      "message": "test1",
+      "status": "New",
+      "submittedAt": "2026-10-01T07:48:28.924Z"
+    }
+  ],
   "contactPage": {
     "header": {
       "title": "Let's craft ",
@@ -1833,7 +1676,7 @@
       "city": "KALOL",
       "state": "Gandhinagar, Gujarat",
       "address": "47/8, G.I.D.C., Kalol - 382725 (N.G.), Dist. Gandhinagar, Gujarat, India",
-      "mapLink": "https://maps.google.com/?q=GIDC+Kalol+Gandhinagar+Gujarat+India"
+      "mapLink": "https://www.google.com/maps/dir/PARTH+PRINTTECH+LLP,+47%2F8,+GIDC+Rd,+G.I.D.C.+Estate,+Kalol,+Gujarat+382721/PARTH+PRINTTECH+LLP,+47%2F8,+GIDC+Rd,+G.I.D.C.+Estate,+Kalol,+Gujarat+382721/@23.2280782,72.5021523,12191m/data=!3m2!1e3!4b1!4m13!4m12!1m5!1m1!1s0x395c2774d643bcd5:0xb0b22793692e94ad!2m2!1d72.5109599!2d23.2257684!1m5!1m1!1s0x395c2774d643bcd5:0xb0b22793692e94ad!2m2!1d72.5109599!2d23.2257684?entry=ttu&g_ep=EgoyMDI2MDkyOS4wIKXMDSoASAFQAw%3D%3D"
     },
     "socials": {
       "twitter": "https://twitter.com",
