@@ -1,8 +1,0 @@
-{
-  "build": {
-    "command": "npm run build"
-  },
-  "serve": {
-    "command": "npm run start"
-  }
-}
