@@ -263,18 +263,9 @@ const ContactPageClient = ({ initialData = null }) => {
                     </svg>
                     <h3 className={styles.cardTitle}>Email Us</h3>
                   </div>
-                  <div className={styles.cardRow}>
-                    <span className={styles.cardBadge}>Sales</span>
-                    <a href={`mailto:${cards.salesEmail || "sales@parthprinttech.com"}`} className={styles.cardLink}>
-                      {cards.salesEmail || "sales@parthprinttech.com"}
-                    </a>
-                  </div>
-                  <div className={styles.cardRow}>
-                    <span className={styles.cardBadge}>Info</span>
-                    <a href={`mailto:${cards.email}`} className={styles.cardLink}>
-                      {cards.email}
-                    </a>
-                  </div>
+                  <a href={`mailto:${cards.email}`} className={styles.cardLink}>
+                    {cards.email}
+                  </a>
                   <p className={styles.cardHint}>{cards.emailHint}</p>
                 </div>
 
@@ -286,22 +277,36 @@ const ContactPageClient = ({ initialData = null }) => {
                     </svg>
                     <h3 className={styles.cardTitle}>Call Us</h3>
                   </div>
-                  <div className={styles.cardRow}>
-                    <span className={styles.cardBadge}>Sales</span>
+                  <a href={`tel:${cards.phone?.replace(/[^0-9+]/g, '')}`} className={styles.cardLink}>
+                    {cards.phone}
+                  </a>
+                  <a href={`tel:${(cards.phone2 || "+91 97247 77606").replace(/[^0-9+]/g, '')}`} className={styles.cardLink}>
+                    {cards.phone2 || "+91 97247 77606"}
+                  </a>
+                  <p className={styles.cardHint}>{cards.phoneHint}</p>
+                </div>
+
+                {/* For Sales Dedicated Card */}
+                <div className={`${styles.infoCard} ${styles.salesCard}`}>
+                  <span className={styles.salesCardBadge}>Sales</span>
+                  <div className={styles.cardHeader}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.cardIcon}>
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    <h3 className={styles.cardTitle}>For Sales</h3>
+                  </div>
+                  <div className={styles.salesCardLinks}>
                     <a href={`tel:${(cards.salesPhone || "+91 99788 70089").replace(/[^0-9+]/g, '')}`} className={styles.cardLink}>
                       {cards.salesPhone || "+91 99788 70089"}
                     </a>
-                  </div>
-                  <div className={styles.cardRow}>
-                    <a href={`tel:${cards.phone?.replace(/[^0-9+]/g, '')}`} className={styles.cardLink}>
-                      {cards.phone}
-                    </a>
-                    <span style={{ color: '#cbd5e1', fontSize: '0.9rem' }}>/</span>
-                    <a href={`tel:${(cards.phone2 || "+91 97247 77606").replace(/[^0-9+]/g, '')}`} className={styles.cardLink}>
-                      {cards.phone2 || "+91 97247 77606"}
+                    <a href={`mailto:${cards.salesEmail || "sales@parthprinttech.com"}`} className={styles.cardLink}>
+                      {cards.salesEmail || "sales@parthprinttech.com"}
                     </a>
                   </div>
-                  <p className={styles.cardHint}>{cards.phoneHint}</p>
+                  <p className={styles.cardHint}>Direct sales inquiries & quotations</p>
                 </div>
               </div>
 

@@ -194,6 +194,34 @@
   letter-spacing: 0.02em;
 }
 
+/* Dedicated Sales Card on Contact Page */
+.salesCard {
+  border-color: rgba(0, 159, 227, 0.35);
+  background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
+  position: relative;
+}
+
+.salesCardBadge {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: #009fe3;
+  color: #ffffff;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.salesCardLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 /* Response time card overlay */
 .responseCard {
   background-color: #0f172a;

@@ -176,13 +176,52 @@
   color: #009fe3;
 }
 
-.contactLabel {
-  font-size: 0.76rem;
-  font-weight: 700;
+/* Distinct For Sales Box in Footer */
+.salesBox {
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: rgba(0, 159, 227, 0.05);
+  border: 1px solid rgba(0, 159, 227, 0.22);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.salesBadge {
+  font-size: 0.72rem;
+  font-weight: 750;
   text-transform: uppercase;
   color: #009fe3;
-  margin-right: 6px;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.06em;
+}
+
+.salesLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.salesLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1e293b;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.salesLink:hover {
+  color: #009fe3;
+}
+
+.salesIcon {
+  width: 15px;
+  height: 15px;
+  color: #009fe3;
+  flex-shrink: 0;
 }
 
 .contactText {
