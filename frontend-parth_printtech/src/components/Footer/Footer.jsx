@@ -147,10 +147,7 @@ const Footer = () => {
             © {new Date().getFullYear()} Parth Printtech LLP. All rights reserved.
           </p>
           <div className={styles.bottomLinks}>
-            <Link href="/privacy" className={styles.bottomLink}>Privacy Policy</Link>
-            <span className={styles.bullet}>•</span>
-            <Link href="/terms" className={styles.bottomLink}>Terms of Service</Link>
-            <span className={styles.bullet}>•</span>
+
             <a href="https://sanmora.in" target="_blank" rel="noopener noreferrer" className={styles.bottomLink}>Developed by sanmora.in</a>
           </div>
         </div>
