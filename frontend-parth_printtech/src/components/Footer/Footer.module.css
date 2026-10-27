@@ -176,6 +176,15 @@
   color: #009fe3;
 }
 
+.contactLabel {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #009fe3;
+  margin-right: 6px;
+  letter-spacing: 0.03em;
+}
+
 .contactText {
   font-size: 0.95rem;
   color: #4a5568;

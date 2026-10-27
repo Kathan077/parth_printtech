@@ -40,8 +40,11 @@ const initialContactState = {
   },
   cards: {
     email: "info@parthprinttech.com",
+    salesEmail: "sales@parthprinttech.com",
     emailHint: "Click to open mail client",
     phone: "+91 99788 88056",
+    phone2: "+91 97247 77606",
+    salesPhone: "+91 99788 70089",
     phoneHint: "Mon - Sat, 9am - 7pm IST",
     responseTime: "Under 24 Hours",
     responseTimeHint: "Our engineering team will review your specs within 1 business day."
@@ -391,16 +394,27 @@ export default function ContactManager() {
               ✉️ Email Us Card
             </h4>
             <div className="form-grid">
-              <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label">Contact Email Address</label>
+              <div className="form-group">
+                <label className="form-label">Sales Email Address</label>
+                <input
+                  type="email"
+                  className="form-input"
+                  value={contactData.cards?.salesEmail || ''}
+                  onChange={(e) => handleNestedField('cards', 'salesEmail', e.target.value)}
+                  placeholder="sales@parthprinttech.com"
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">General Contact Email</label>
                 <input
                   type="email"
                   className="form-input"
                   value={contactData.cards?.email || ''}
                   onChange={(e) => handleNestedField('cards', 'email', e.target.value)}
+                  placeholder="info@parthprinttech.com"
                 />
               </div>
-              <div className="form-group" style={{ marginBottom: 0 }}>
+              <div className="form-group" style={{ marginBottom: 0, gridColumn: 'span 2' }}>
                 <label className="form-label">Email Card Hint Text</label>
                 <input
                   type="text"
@@ -417,16 +431,27 @@ export default function ContactManager() {
               📞 Call Us Hotline Card
             </h4>
             <div className="form-grid">
-              <div className="form-group" style={{ marginBottom: 0 }}>
-                <label className="form-label">Phone Hotline Number</label>
+              <div className="form-group">
+                <label className="form-label">Sales Hotline Number</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={contactData.cards?.salesPhone || ''}
+                  onChange={(e) => handleNestedField('cards', 'salesPhone', e.target.value)}
+                  placeholder="+91 99788 70089"
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">General Phone Number</label>
                 <input
                   type="text"
                   className="form-input"
                   value={contactData.cards?.phone || ''}
                   onChange={(e) => handleNestedField('cards', 'phone', e.target.value)}
+                  placeholder="+91 99788 88056"
                 />
               </div>
-              <div className="form-group" style={{ marginBottom: 0 }}>
+              <div className="form-group" style={{ marginBottom: 0, gridColumn: 'span 2' }}>
                 <label className="form-label">Business Hours Hint</label>
                 <input
                   type="text"

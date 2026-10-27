@@ -158,6 +158,33 @@
   color: #009fe3;
 }
 
+.cardRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.cardRow:last-child {
+  margin-bottom: 0;
+}
+
+.cardBadge {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #009fe3;
+  background: rgba(0, 159, 227, 0.08);
+  border: 1px solid rgba(0, 159, 227, 0.2);
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
 .cardHint {
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.72rem;

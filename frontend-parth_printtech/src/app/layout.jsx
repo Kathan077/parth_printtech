@@ -121,8 +121,8 @@ export default function RootLayout({ children }) {
     image: `${siteUrl}/logo/world_map_blueprint.png`,
     description:
       "Premier manufacturer and exporter of PVC & PETG shrink sleeves, BOPP wrap-around labels, heat transfer labels, and plain PVC shrink film.",
-    telephone: ["+91 99788 88056", "+91 97247 77606"],
-    email: "info@parthprinttech.com",
+    telephone: ["+91 99788 70089", "+91 99788 88056", "+91 97247 77606"],
+    email: ["sales@parthprinttech.com", "info@parthprinttech.com"],
     address: {
       "@type": "PostalAddress",
       streetAddress: "47/8, G.I.D.C., Kalol - 382725 (N.G.)",

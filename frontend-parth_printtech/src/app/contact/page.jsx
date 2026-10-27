@@ -49,8 +49,8 @@ export default async function ContactPage() {
     mainEntity: {
       "@type": "LocalBusiness",
       name: "Parth Printtech LLP",
-      telephone: "+91-9978888056",
-      email: "info@parthprinttech.com",
+      telephone: ["+91 99788 70089", "+91 99788 88056", "+91 97247 77606"],
+      email: ["sales@parthprinttech.com", "info@parthprinttech.com"],
       address: {
         "@type": "PostalAddress",
         streetAddress: "47/8, G.I.D.C., Kalol - 382725 (N.G.)",

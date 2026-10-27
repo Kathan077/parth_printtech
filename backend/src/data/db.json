@@ -1666,8 +1666,11 @@
     },
     "cards": {
       "email": "info@parthprinttech.com",
+      "salesEmail": "sales@parthprinttech.com",
       "emailHint": "Click to open mail client",
       "phone": "+91 99788 88056",
+      "phone2": "+91 97247 77606",
+      "salesPhone": "+91 99788 70089",
       "phoneHint": "Mon - Sat, 9am - 7pm IST",
       "responseTime": "Under 24 Hours",
       "responseTimeHint": "Our engineering team will review your specs within 1 business day."
