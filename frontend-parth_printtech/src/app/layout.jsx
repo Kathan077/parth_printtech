@@ -156,8 +156,9 @@ export default function RootLayout({ children }) {
       },
     ],
     sameAs: [
-      "https://twitter.com",
       "https://instagram.com",
+      "https://facebook.com",
+      "https://youtube.com",
       "https://linkedin.com",
     ],
   };

@@ -25,8 +25,9 @@ const defaultContactData = {
     mapLink: "https://maps.google.com/?q=GIDC+Kalol+Gandhinagar+Gujarat+India"
   },
   socials: {
-    twitter: "https://twitter.com",
     instagram: "https://instagram.com",
+    facebook: "https://facebook.com",
+    youtube: "https://youtube.com",
     linkedin: "https://linkedin.com"
   },
   trustBadges: [

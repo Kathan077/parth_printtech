@@ -1,4 +1,4 @@
-export const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'https://parth-printtech.onrender.com/api';
+export const API_BASE = process.env.NEXT_PUBLIC_API_BASE || (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:5000/api' : 'https://parth-printtech.onrender.com/api');
 
 // Fallback snapshots updated with the latest images configured in Admin CMS
 export const fallbackHomeData = {

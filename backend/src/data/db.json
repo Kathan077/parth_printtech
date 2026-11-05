@@ -485,7 +485,8 @@
       "linkedin": "https://linkedin.com",
       "instagram": "https://instagram.com",
       "facebook": "https://facebook.com",
-      "whatsapp": "+919876543210"
+      "whatsapp": "+919876543210",
+      "youtube": "https://youtube.com"
     }
   },
   "productsPageHeader": {
@@ -1682,9 +1683,10 @@
       "mapLink": "https://www.google.com/maps/dir/PARTH+PRINTTECH+LLP,+47%2F8,+GIDC+Rd,+G.I.D.C.+Estate,+Kalol,+Gujarat+382721/PARTH+PRINTTECH+LLP,+47%2F8,+GIDC+Rd,+G.I.D.C.+Estate,+Kalol,+Gujarat+382721/@23.2280782,72.5021523,12191m/data=!3m2!1e3!4b1!4m13!4m12!1m5!1m1!1s0x395c2774d643bcd5:0xb0b22793692e94ad!2m2!1d72.5109599!2d23.2257684!1m5!1m1!1s0x395c2774d643bcd5:0xb0b22793692e94ad!2m2!1d72.5109599!2d23.2257684?entry=ttu&g_ep=EgoyMDI2MDkyOS4wIKXMDSoASAFQAw%3D%3D"
     },
     "socials": {
-      "twitter": "https://twitter.com",
-      "instagram": "https://instagram.com",
-      "linkedin": "https://linkedin.com"
+      "instagram": "https://instagram.com/parthprinttech",
+      "facebook": "https://facebook.com/parthprinttech",
+      "youtube": "https://youtube.com/@parthprinttech",
+      "linkedin": "https://linkedin.com/company/parthprinttech"
     },
     "trustBadges": [
       "Private & secure",

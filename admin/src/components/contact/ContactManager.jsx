@@ -56,8 +56,9 @@ const initialContactState = {
     mapLink: "https://maps.google.com/?q=GIDC+Kalol+Gandhinagar+Gujarat+India"
   },
   socials: {
-    twitter: "https://twitter.com",
     instagram: "https://instagram.com",
+    facebook: "https://facebook.com",
+    youtube: "https://youtube.com",
     linkedin: "https://linkedin.com"
   },
   trustBadges: [
@@ -101,7 +102,15 @@ export default function ContactManager() {
     try {
       const res = await api.getContactAdminData();
       if (res.success && res.data) {
-        setContactData(res.data);
+        setContactData({
+          ...res.data,
+          socials: {
+            instagram: res.data.socials?.instagram || 'https://instagram.com',
+            facebook: res.data.socials?.facebook || 'https://facebook.com',
+            youtube: res.data.socials?.youtube || 'https://youtube.com',
+            linkedin: res.data.socials?.linkedin || 'https://linkedin.com'
+          }
+        });
       }
     } catch (err) {
       toast.error('Failed to load contact data: ' + err.message);
@@ -568,23 +577,35 @@ export default function ContactManager() {
             </button>
           </div>
 
-          <div className="form-grid" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
-            <div className="form-group" style={{ marginBottom: 0 }}>
-              <label className="form-label">Twitter / X URL</label>
-              <input
-                type="text"
-                className="form-input"
-                value={contactData.socials?.twitter || ''}
-                onChange={(e) => handleNestedField('socials', 'twitter', e.target.value)}
-              />
-            </div>
+          <div className="form-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
             <div className="form-group" style={{ marginBottom: 0 }}>
               <label className="form-label">Instagram URL</label>
               <input
                 type="text"
                 className="form-input"
+                placeholder="https://instagram.com/..."
                 value={contactData.socials?.instagram || ''}
                 onChange={(e) => handleNestedField('socials', 'instagram', e.target.value)}
+              />
+            </div>
+            <div className="form-group" style={{ marginBottom: 0 }}>
+              <label className="form-label">Facebook URL</label>
+              <input
+                type="text"
+                className="form-input"
+                placeholder="https://facebook.com/..."
+                value={contactData.socials?.facebook || ''}
+                onChange={(e) => handleNestedField('socials', 'facebook', e.target.value)}
+              />
+            </div>
+            <div className="form-group" style={{ marginBottom: 0 }}>
+              <label className="form-label">YouTube URL</label>
+              <input
+                type="text"
+                className="form-input"
+                placeholder="https://youtube.com/..."
+                value={contactData.socials?.youtube || ''}
+                onChange={(e) => handleNestedField('socials', 'youtube', e.target.value)}
               />
             </div>
             <div className="form-group" style={{ marginBottom: 0 }}>
@@ -592,6 +613,7 @@ export default function ContactManager() {
               <input
                 type="text"
                 className="form-input"
+                placeholder="https://linkedin.com/in/..."
                 value={contactData.socials?.linkedin || ''}
                 onChange={(e) => handleNestedField('socials', 'linkedin', e.target.value)}
               />
